@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlgoVista - Interactive Data Visualization</title>
+    <title>Data Structure Explorer - AlgoVista</title>
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Google Fonts -->
@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Chart.js Library for Dashboard -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- D3.js Library for Binary Trees -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -36,10 +36,10 @@
         
         <!-- Main Content -->
         <main>
-            <!-- Hero Section -->
-            <section class="hero fade-in-up" id="home">
-                <h2 class="hero-title">Welcome to <span>AlgoVista</span></h2>
-                <p>Your interactive platform for visualizing algorithms and data structures.</p>
+            <!-- Data Structure Explorer Section -->
+            <section class="data-structure-explorer fade-in-up" id="data-structure-explorer">
+                <h3>Data Structure Explorer: Binary Trees</h3>
+                <div class="tree-container" id="binary-tree-container"></div>
             </section>
         </main>
         
@@ -52,8 +52,7 @@
             </div>
         </div>
         
-        <!-- D3.js Library -->
-        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <!-- D3.js Library (Already included in head) -->
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
     </div>

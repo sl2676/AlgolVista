@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlgoVista - Interactive Data Visualization</title>
+    <title>Algorithm Visualizer - AlgoVista</title>
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Google Fonts -->
@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Chart.js Library for Dashboard -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- D3.js Library for Visualizations -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -36,10 +36,14 @@
         
         <!-- Main Content -->
         <main>
-            <!-- Hero Section -->
-            <section class="hero fade-in-up" id="home">
-                <h2 class="hero-title">Welcome to <span>AlgoVista</span></h2>
-                <p>Your interactive platform for visualizing algorithms and data structures.</p>
+            <!-- Algorithm Visualizer Section -->
+            <section class="algorithm-visualizer fade-in-up" id="algorithm-visualizer">
+                <h3>Algorithm Visualizer: Bubble Sort</h3>
+                <div class="visualizer-controls">
+                    <button id="start-sort">Start Sort</button>
+                    <button id="reset-sort">Reset</button>
+                </div>
+                <div class="visualizer-container" id="bubble-sort-container"></div>
             </section>
         </main>
         
@@ -52,8 +56,7 @@
             </div>
         </div>
         
-        <!-- D3.js Library -->
-        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <!-- D3.js Library (Already included in head) -->
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
     </div>

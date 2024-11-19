@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Resources - AlgoVista</title>
+    <!-- Link to Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Sliding Navigation Bar -->
+        <div id="sideNav" class="side-nav">
+            <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
+            <a href="complexity-dashboard.html">Complexity Comparison</a>
+            <a href="data-structure-explorer.html">Data Structure Explorer</a>
+            <a href="algorithm-visualizer.html">Algorithm Visualizer</a>
+            <a href="code-editor.html">Interactive Code Editors</a>
+            <a href="educational-resources.html">Educational Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact/Support</a>
+        </div>
+        
+        <!-- Navigation Bar with Explore Button -->
+        <nav class="navbar">
+            <span class="openbtn" id="openNav">&#9776; Explore</span>
+            <div class="navbar-brand">AlgoVista</div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Educational Resources Section -->
+            <section class="educational-content fade-in-up" id="educational-content">
+                <h3>Educational Resources</h3>
+                
+                <!-- Article 1 -->
+                <article>
+                    <h4>Understanding Bubble Sort</h4>
+                    <p>
+                        Bubble Sort is a simple comparison-based algorithm used to sort lists. It repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. This process is repeated until the list is sorted.
+                    </p>
+                    <h5>Usage Scenarios:</h5>
+                    <ul>
+                        <li>Educational purposes to understand basic sorting mechanisms.</li>
+                        <li>Sorting small datasets where performance is not a critical concern.</li>
+                    </ul>
+                    <h5>Real-World Example:</h5>
+                    <p>
+                        Imagine you have a small stack of books on your desk that you want to organize by height. Bubble Sort would allow you to repeatedly compare adjacent books and swap them if they're out of order, gradually moving the tallest books to the top.
+                    </p>
+                </article>
+                
+                <!-- Article 2 -->
+                <article>
+                    <h4>Exploring Binary Trees</h4>
+                    <p>
+                        A Binary Tree is a hierarchical data structure in which each node has at most two children referred to as the left child and the right child. Binary Trees are used in various applications like expression parsing, search trees, and more.
+                    </p>
+                    <h5>Usage Scenarios:</h5>
+                    <ul>
+                        <li>Implementing efficient search algorithms with Binary Search Trees.</li>
+                        <li>Organizing data for quick retrieval and manipulation.</li>
+                        <li>Expression parsing in compilers and interpreters.</li>
+                    </ul>
+                    <h5>Real-World Example:</h5>
+                    <p>
+                        Consider a phone book where names are stored in a Binary Search Tree. This allows for quick lookup, insertion, and deletion of entries based on alphabetical order.
+                    </p>
+                </article>
+                
+                <!-- Add more articles as needed -->
+                
+                <!-- Example Article 3 -->
+                <article>
+                    <h4>Dijkstra's Algorithm for Shortest Paths</h4>
+                    <p>
+                        Dijkstra's Algorithm is a graph search algorithm that finds the shortest path between nodes in a graph, which may represent, for example, road networks. It is widely used in network routing protocols and geographical mapping applications.
+                    </p>
+                    <h5>Usage Scenarios:</h5>
+                    <ul>
+                        <li>Finding the shortest route for GPS navigation systems.</li>
+                        <li>Optimizing network routing paths in telecommunications.</li>
+                        <li>Planning logistics and transportation routes in supply chain management.</li>
+                    </ul>
+                    <h5>Real-World Example:</h5>
+                    <p>
+                        When you use a GPS to navigate from your home to a destination, Dijkstra's Algorithm calculates the shortest and fastest path considering various factors like distance and traffic conditions.
+                    </p>
+                </article>
+                
+                <!-- Example Article 4 -->
+                <article>
+                    <h4>Understanding Graphs</h4>
+                    <p>
+                        Graphs are data structures used to represent pairwise relationships between objects. They consist of nodes (also called vertices) connected by edges. Graphs can be directed or undirected and are foundational in various computing applications.
+                    </p>
+                    <h5>Usage Scenarios:</h5>
+                    <ul>
+                        <li>Modeling social networks where individuals are nodes connected by friendships.</li>
+                        <li>Representing computer networks with devices as nodes and connections as edges.</li>
+                        <li>Scheduling tasks where dependencies are modeled as directed edges.</li>
+                    </ul>
+                    <h5>Real-World Example:</h5>
+                    <p>
+                        Social media platforms use graphs to model connections between users, enabling features like friend suggestions, network analysis, and community detection.
+                    </p>
+                </article>
+            </section>
+        </main>
+        
+        <!-- Modal Structure -->
+        <div id="nodeModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modalTitle">Node Details</h2>
+                <p id="modalBody">Details about the node will appear here.</p>
+            </div>
+        </div>
+        
+        <!-- D3.js Library (Not required on Educational Resources page, can be omitted) -->
+        <!-- Link to Custom Script -->
+        <script src="js/script.js"></script>
+    </div>
+</body>
+</html>
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlgoVista - Interactive Data Visualization</title>
+    <title>Complexity Comparison Dashboard - AlgoVista</title>
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Google Fonts -->
@@ -36,10 +36,30 @@
         
         <!-- Main Content -->
         <main>
-            <!-- Hero Section -->
-            <section class="hero fade-in-up" id="home">
-                <h2 class="hero-title">Welcome to <span>AlgoVista</span></h2>
-                <p>Your interactive platform for visualizing algorithms and data structures.</p>
+            <!-- Complexity Comparison Dashboard Section -->
+            <section class="complexity-dashboard fade-in-up" id="complexity-dashboard">
+                <h3>Complexity Comparison Dashboard</h3>
+                <div class="dashboard-controls">
+                    <select id="algorithm-select-1">
+                        <option value="">Select Algorithm 1</option>
+                        <option value="Bubble Sort">Bubble Sort</option>
+                        <option value="Quick Sort">Quick Sort</option>
+                        <option value="Merge Sort">Merge Sort</option>
+                        <!-- Add more algorithms as needed -->
+                    </select>
+                    <select id="algorithm-select-2">
+                        <option value="">Select Algorithm 2</option>
+                        <option value="Bubble Sort">Bubble Sort</option>
+                        <option value="Quick Sort">Quick Sort</option>
+                        <option value="Merge Sort">Merge Sort</option>
+                        <!-- Add more algorithms as needed -->
+                    </select>
+                    <button id="compare-button">Compare</button>
+                </div>
+                <div class="dashboard-charts">
+                    <canvas id="time-complexity-chart"></canvas>
+                    <canvas id="space-complexity-chart"></canvas>
+                </div>
             </section>
         </main>
         
@@ -52,8 +72,7 @@
             </div>
         </div>
         
-        <!-- D3.js Library -->
-        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <!-- Chart.js Library for Dashboard (Already included in head) -->
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
     </div>

@@ -21,7 +21,7 @@ body {
     background-color: var(--light-mint-green); /* #D1FFD7 */
     color: var(--dark-gray); /* #656565 */
     scroll-behavior: smooth; /* Smooth scrolling */
-    overflow: hidden; /* Prevent horizontal scroll and ensure trees are contained */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Container */
@@ -31,90 +31,92 @@ body {
     min-height: 100vh; /* Ensure container covers at least full viewport height */
 }
 
-/* Tree Container */
-.tree-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent; /* Ensure transparent background */
-    z-index: 0; /* Behind main content */
-    overflow: visible; /* Allow trees to extend beyond container if needed */
-}
-
-/* Ensure main content is above the trees */
-main {
-    position: relative;
-    z-index: 1;
-    padding: 50px; /* Add some padding for visual spacing */
-}
-
-/* Additional Styles for Organic Appearance */
-.tree-container svg {
-    width: 100%;
-    height: 100%;
-}
-
-.link {
-    stroke-width: 2px;
-    stroke-opacity: 0.6;
-}
-
-.node {
-    stroke-width: 2px;
-}
-
-/* Modal Styles */
-.modal {
-    display: none; /* Hidden by default */
+/* Sliding Navigation Bar */
+.side-nav {
+    height: 100%; /* Full-height */
+    width: 0; /* Initial width */
     position: fixed; /* Stay in place */
-    z-index: 1000; /* Above all other elements */
-    left: 0;
+    z-index: 1001; /* Above other content */
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    left: 0;
+    background-color: var(--white); /* White background */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* Transition effect */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    padding-top: 60px; /* Place content below navbar */
 }
 
-.modal-content {
-    background-color: var(--white); /* #FFFFFF */
-    margin: 10% auto; /* Centered vertically and horizontally */
-    padding: 20px;
-    border: none; /* Remove border */
-    width: 80%; /* Could be more or less, depending on screen size */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-
-.close-button {
-    color: var(--dark-gray); /* #656565 */
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: var(--hover-color-left); /* Change based on tree */
+/* Side Navigation Links */
+.side-nav a {
+    padding: 8px 32px;
     text-decoration: none;
+    font-size: 20px;
+    color: var(--dark-gray);
+    display: block;
+    transition: 0.3s;
+}
+
+.side-nav a:hover {
+    color: var(--hover-color-left);
+}
+
+/* Close Button */
+.side-nav .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
     cursor: pointer;
+    color: var(--dark-gray);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .tree-container {
-        /* Adjust dimensions or other styles if needed */
-    }
+.side-nav .closebtn:hover {
+    color: var(--hover-color-left);
 }
 
-@media (max-width: 480px) {
-    .tree-container {
-        /* Further adjustments for very small screens */
-    }
+/* Open Button */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: var(--tree-color-left);
+    color: var(--white);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.openbtn:hover {
+    background-color: var(--hover-color-left);
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--tree-color-left);
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Navbar Brand */
+.navbar-brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-left: 10px;
+}
+
+/* Main Content */
+main {
+    margin-top: 60px; /* Space for fixed navbar */
+    padding: 20px;
 }
 
 /* Hero Section */
@@ -159,12 +161,191 @@ main {
     color: var(--dark-gray); /* #656565 */
 }
 
+/* Sections */
+section {
+    margin: 40px 0;
+}
+
+section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--tree-color-left);
+}
+
+/* Algorithm Visualizer Controls */
+.visualizer-controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.visualizer-controls button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: var(--tree-color-left);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.visualizer-controls button:hover {
+    background-color: var(--hover-color-left);
+}
+
+/* Visualizer Container */
+.visualizer-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 300px;
+    border: 2px dashed var(--muted-gray-green);
+    border-radius: 10px;
+    background-color: var(--white);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Bubble Sort Bars */
+.visualizer-container .bar {
+    display: inline-block;
+    background-color: var(--tree-color-right);
+    transition: height 0.3s, background-color 0.3s;
+}
+
+/* Data Structure Explorer Section */
+.data-structure-explorer .tree-container {
+    width: 100%;
+    height: 500px;
+    border: 2px solid var(--muted-gray-green);
+    border-radius: 10px;
+    background-color: var(--white);
+}
+
+/* Complexity Dashboard Section */
+.complexity-dashboard .dashboard-controls {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.complexity-dashboard select {
+    padding: 10px;
+    margin: 0 10px;
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 5px;
+}
+
+.complexity-dashboard button {
+    padding: 10px 20px;
+    background-color: var(--tree-color-right);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.complexity-dashboard button:hover {
+    background-color: var(--hover-color-right);
+}
+
+.dashboard-charts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+.dashboard-charts canvas {
+    max-width: 500px;
+    width: 100%;
+    height: 300px;
+}
+
+/* Educational Content Section */
+.educational-content article {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.educational-content article h4 {
+    margin-top: 0;
+    color: var(--tree-color-left);
+}
+
+.educational-content article h5 {
+    margin-bottom: 10px;
+    color: var(--tree-color-right);
+}
+
+.educational-content article ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+/* Binary Tree Styling */
+.binary-tree-container path.link {
+    fill: none;
+    stroke-width: 2px;
+}
+
+.binary-tree-container circle {
+    transition: fill 0.3s, stroke 0.3s;
+}
+
+.binary-tree-container text {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Above all other elements */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: var(--white); /* #FFFFFF */
+    margin: 10% auto; /* Centered vertically and horizontally */
+    padding: 20px;
+    border: none; /* Remove border */
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    color: var(--dark-gray); /* #656565 */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--hover-color-left); /* Change based on tree */
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* Ensure all transitions are smooth */
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
-.tree-container, .hero {
+.side-nav, .navbar, .hero, .algorithm-visualizer, .data-structure-explorer, .complexity-dashboard, .educational-content {
     transition: all 0.3s ease;
 }
 
