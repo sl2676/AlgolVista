@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoVista - Interactive Data Visualization</title>
+    <!-- Link to Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <!-- Option A: Without Integrity Check (Use this to bypass integrity errors) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Option B: With Correct Integrity (Uncomment if using) -->
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-a/+tuKw3x/mkDJh9+fG3j0KhiC2oS/PJJKp1F5X9zlFSFReiPrQHtVfeYZTC7iX3bLy1SVfnScKsf1Qp2a8Zmg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    -->
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section class="hero fade-in-up" id="home">
+                <h2 class="hero-title">Welcome to <span>AlgoVista</span></h2>
+                <p>Your interactive platform for visualizing algorithms and data structures.</p>
+            </section>
+        </main>
+        
+        <!-- Single Tree Container -->
+        <div class="tree-container" id="tree-container"></div>
+        
+        <!-- Modal Structure -->
+        <div id="nodeModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modalTitle">Node Details</h2>
+                <p id="modalBody">Details about the node will appear here.</p>
+            </div>
+        </div>
+        
+        <!-- D3.js Library -->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <!-- Link to Custom Script -->
+        <script src="js/script.js"></script>
+    </div>
+</body>
+</html>
+

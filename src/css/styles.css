@@ -1,0 +1,184 @@
+/* Define Color Scheme Variables */
+:root {
+    --dark-gray: #656565;
+    --muted-gray-green: #808782;
+    --soft-green: #A6D3A0;
+    --light-mint-green: #D1FFD7;
+    --light-green: #B3FFB3;
+    --tree-color-left: #FF6F61; /* Coral */
+    --tree-color-right: #6B5B95; /* Indigo */
+    --hover-color-left: #FF8C69; /* Darker Coral */
+    --hover-color-right: #8365C9; /* Darker Indigo */
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
+/* Import Google Fonts */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-mint-green); /* #D1FFD7 */
+    color: var(--dark-gray); /* #656565 */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    overflow: hidden; /* Prevent horizontal scroll and ensure trees are contained */
+}
+
+/* Container */
+.container {
+    position: relative; /* Ensure container doesn't interfere with fixed elements */
+    overflow: hidden; /* Hide any overflowing content */
+    min-height: 100vh; /* Ensure container covers at least full viewport height */
+}
+
+/* Tree Container */
+.tree-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Ensure transparent background */
+    z-index: 0; /* Behind main content */
+    overflow: visible; /* Allow trees to extend beyond container if needed */
+}
+
+/* Ensure main content is above the trees */
+main {
+    position: relative;
+    z-index: 1;
+    padding: 50px; /* Add some padding for visual spacing */
+}
+
+/* Additional Styles for Organic Appearance */
+.tree-container svg {
+    width: 100%;
+    height: 100%;
+}
+
+.link {
+    stroke-width: 2px;
+    stroke-opacity: 0.6;
+}
+
+.node {
+    stroke-width: 2px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Above all other elements */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: var(--white); /* #FFFFFF */
+    margin: 10% auto; /* Centered vertically and horizontally */
+    padding: 20px;
+    border: none; /* Remove border */
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-button {
+    color: var(--dark-gray); /* #656565 */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--hover-color-left); /* Change based on tree */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tree-container {
+        /* Adjust dimensions or other styles if needed */
+    }
+}
+
+@media (max-width: 480px) {
+    .tree-container {
+        /* Further adjustments for very small screens */
+    }
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    margin: 50px 0;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, var(--soft-green) 0%, var(--light-green) 100%); /* Gradient background */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: var(--white); /* #FFFFFF */
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+.hero:hover {
+    background: linear-gradient(135deg, var(--light-green) 0%, var(--soft-green) 100%); /* Reverse gradient on hover */
+}
+
+.hero h2.hero-title {
+    font-size: 48px;
+    margin: 0;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s;
+}
+
+.hero h2.hero-title span {
+    color: var(--light-green); /* #B3FFB3 */
+}
+
+.hero p {
+    font-size: 20px;
+    margin: 20px 0;
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+.hero:hover p {
+    color: var(--dark-gray); /* #656565 */
+}
+
+/* Ensure all transitions are smooth */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.tree-container, .hero {
+    transition: all 0.3s ease;
+}
+
+/* Fade-In Animation */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
