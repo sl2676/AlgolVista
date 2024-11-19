@@ -38,21 +38,51 @@
         <main>
             <!-- Algorithm Visualizer Section -->
             <section class="algorithm-visualizer fade-in-up" id="algorithm-visualizer">
-                <h3>Algorithm Visualizer: Bubble Sort</h3>
+                <h3>Algorithm Visualizer</h3>
+                
+                <!-- Algorithm Selection -->
+                <div class="algorithm-selection">
+                    <label for="algorithm-select">Select Algorithm:</label>
+                	<select id="algorithm-select">
+    <option value="">--Choose an Algorithm--</option>
+    <option value="Bubble Sort">Bubble Sort</option>
+    <option value="Quick Sort">Quick Sort</option>
+    <option value="Merge Sort">Merge Sort</option>
+    <option value="Insertion Sort">Insertion Sort</option>
+    <option value="Selection Sort">Selection Sort</option>
+    <option value="Heap Sort">Heap Sort</option>
+    <option value="Counting Sort">Counting Sort</option>
+    <option value="Radix Sort">Radix Sort</option>
+    <option value="Shell Sort">Shell Sort</option>
+    <option value="Cocktail Shaker Sort">Cocktail Shaker Sort</option>
+</select>
+
+				</div>
+                
+                <!-- Controls -->
                 <div class="visualizer-controls">
-                    <button id="start-sort">Start Sort</button>
-                    <button id="reset-sort">Reset</button>
+                    <button id="start-visualizer">Start</button>
+                    <button id="pause-visualizer">Pause</button>
+                    <button id="reset-visualizer">Reset</button>
                 </div>
-                <div class="visualizer-container" id="bubble-sort-container"></div>
+                
+                <!-- Visualization Container -->
+                <div class="visualizer-container" id="visualizer-container"></div>
+                
+                <!-- Algorithm Description -->
+                <div class="algorithm-description" id="algorithm-description">
+                    <h4>Description:</h4>
+                    <p>Select an algorithm to view its description and usage scenarios.</p>
+                </div>
             </section>
         </main>
         
-        <!-- Modal Structure -->
-        <div id="nodeModal" class="modal">
+        <!-- Modal Structure (Optional for Algorithm Details) -->
+        <div id="algorithmModal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Node Details</h2>
-                <p id="modalBody">Details about the node will appear here.</p>
+                <h2 id="modalTitle">Algorithm Details</h2>
+                <p id="modalBody">Detailed information about the algorithm.</p>
             </div>
         </div>
         

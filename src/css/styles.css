@@ -11,6 +11,11 @@
     --hover-color-right: #8365C9; /* Darker Indigo */
     --white: #FFFFFF;
     --black: #000000;
+    --background-color: #F5F5F5;
+    --primary-color: #6B5B95; /* Indigo */
+    --secondary-color: #FF6F61; /* Coral */
+    --accent-color: #A6D3A0; /* Soft Green */
+    --text-color: #333333;
 }
 
 /* Import Google Fonts */
@@ -18,8 +23,8 @@ body {
     font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--light-mint-green); /* #D1FFD7 */
-    color: var(--dark-gray); /* #656565 */
+    background-color: var(--background-color); /* Light gray background */
+    color: var(--text-color);
     scroll-behavior: smooth; /* Smooth scrolling */
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
@@ -42,61 +47,61 @@ body {
     background-color: var(--white); /* White background */
     overflow-x: hidden; /* Disable horizontal scroll */
     transition: 0.5s; /* Transition effect */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
     padding-top: 60px; /* Place content below navbar */
 }
 
-/* Side Navigation Links */
 .side-nav a {
-    padding: 8px 32px;
+    padding: 15px 30px;
     text-decoration: none;
-    font-size: 20px;
-    color: var(--dark-gray);
+    font-size: 18px;
+    color: var(--primary-color);
     display: block;
-    transition: 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .side-nav a:hover {
-    color: var(--hover-color-left);
+    background-color: var(--accent-color);
+    color: var(--white);
 }
 
-/* Close Button */
 .side-nav .closebtn {
     position: absolute;
-    top: 20px;
+    top: 15px;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
     cursor: pointer;
-    color: var(--dark-gray);
+    color: var(--primary-color);
 }
 
 .side-nav .closebtn:hover {
-    color: var(--hover-color-left);
+    color: var(--secondary-color);
 }
 
 /* Open Button */
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: var(--tree-color-left);
+    background-color: var(--primary-color);
     color: var(--white);
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .openbtn:hover {
-    background-color: var(--hover-color-left);
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
 }
 
 /* Navigation Bar */
 .navbar {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    background-color: var(--tree-color-left);
+    background-color: var(--primary-color);
     padding: 10px 20px;
     position: fixed;
     width: 100%;
@@ -105,261 +110,63 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Navbar Brand */
 .navbar-brand {
     font-size: 24px;
     font-weight: 700;
     color: var(--white);
-    margin-left: 10px;
 }
 
 /* Main Content */
 main {
-    margin-top: 60px; /* Space for fixed navbar */
+    margin-top: 70px; /* Space for fixed navbar */
     padding: 20px;
 }
 
-/* Hero Section */
-.hero {
-    text-align: center;
-    margin: 50px 0;
-    padding: 60px 40px;
-    background: linear-gradient(135deg, var(--soft-green) 0%, var(--light-green) 100%); /* Gradient background */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: var(--white); /* #FFFFFF */
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-}
-
-.hero:hover {
-    background: linear-gradient(135deg, var(--light-green) 0%, var(--soft-green) 100%); /* Reverse gradient on hover */
-}
-
-.hero h2.hero-title {
-    font-size: 48px;
-    margin: 0;
-    font-weight: 700;
-    position: relative;
-    z-index: 2;
-    transition: color 0.3s;
-}
-
-.hero h2.hero-title span {
-    color: var(--light-green); /* #B3FFB3 */
-}
-
-.hero p {
-    font-size: 20px;
-    margin: 20px 0;
-    font-weight: 400;
-    transition: color 0.3s;
-}
-
-.hero:hover p {
-    color: var(--dark-gray); /* #656565 */
-}
-
-/* Sections */
+/* Section Styles */
 section {
     margin: 40px 0;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 section h3 {
     text-align: center;
     margin-bottom: 20px;
-    color: var(--tree-color-left);
+    color: var(--primary-color);
 }
 
-/* Algorithm Visualizer Controls */
-.visualizer-controls {
-    text-align: center;
-    margin-bottom: 20px;
+section h4, section h5 {
+    color: var(--secondary-color);
 }
 
-.visualizer-controls button {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: var(--tree-color-left);
-    color: var(--white);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+/* Algorithm Selection */
+.algorithm-selection label {
+    margin-right: 10px;
 }
 
-.visualizer-controls button:hover {
-    background-color: var(--hover-color-left);
+.algorithm-selection select {
+    border: 2px solid var(--primary-color);
+    transition: border-color 0.3s;
 }
 
 /* Visualizer Container */
 .visualizer-container {
     display: flex;
-    justify-content: center;
     align-items: flex-end;
-    height: 300px;
-    border: 2px dashed var(--muted-gray-green);
-    border-radius: 10px;
-    background-color: var(--white);
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-/* Bubble Sort Bars */
-.visualizer-container .bar {
-    display: inline-block;
-    background-color: var(--tree-color-right);
-    transition: height 0.3s, background-color 0.3s;
-}
-
-/* Data Structure Explorer Section */
-.data-structure-explorer .tree-container {
-    width: 100%;
-    height: 500px;
+    justify-content: space-evenly;
+    background-color: var(--light-mint-green);
     border: 2px solid var(--muted-gray-green);
-    border-radius: 10px;
-    background-color: var(--white);
-}
-
-/* Complexity Dashboard Section */
-.complexity-dashboard .dashboard-controls {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.complexity-dashboard select {
-    padding: 10px;
-    margin: 0 10px;
-    border: 1px solid var(--muted-gray-green);
+    height: 400px;
     border-radius: 5px;
 }
 
-.complexity-dashboard button {
-    padding: 10px 20px;
-    background-color: var(--tree-color-right);
-    color: var(--white);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.complexity-dashboard button:hover {
-    background-color: var(--hover-color-right);
-}
-
-.dashboard-charts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    justify-content: center;
-}
-
-.dashboard-charts canvas {
-    max-width: 500px;
-    width: 100%;
-    height: 300px;
-}
-
-/* Educational Content Section */
-.educational-content article {
-    background-color: var(--white);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.educational-content article h4 {
-    margin-top: 0;
-    color: var(--tree-color-left);
-}
-
-.educational-content article h5 {
-    margin-bottom: 10px;
-    color: var(--tree-color-right);
-}
-
-.educational-content article ul {
-    list-style-type: disc;
-    margin-left: 20px;
-}
-
-/* Binary Tree Styling */
-.binary-tree-container path.link {
-    fill: none;
-    stroke-width: 2px;
-}
-
-.binary-tree-container circle {
-    transition: fill 0.3s, stroke 0.3s;
-}
-
-.binary-tree-container text {
-    font-size: 12px;
-    font-weight: 600;
-}
-
-/* Modal Styles */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Above all other elements */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
-}
-
-.modal-content {
-    background-color: var(--white); /* #FFFFFF */
-    margin: 10% auto; /* Centered vertically and horizontally */
-    padding: 20px;
-    border: none; /* Remove border */
-    width: 80%; /* Could be more or less, depending on screen size */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-
-.close-button {
-    color: var(--dark-gray); /* #656565 */
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: var(--hover-color-left); /* Change based on tree */
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Ensure all transitions are smooth */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-.side-nav, .navbar, .hero, .algorithm-visualizer, .data-structure-explorer, .complexity-dashboard, .educational-content {
-    transition: all 0.3s ease;
-}
-
-/* Fade-In Animation */
-.fade-in-up {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Bars */
+.bar {
+    display: inline-block;
+    background-color: var(--primary-color);
+    margin: 1px;
+    transition: height 0.3s, background-color 0.3s;
 }
 

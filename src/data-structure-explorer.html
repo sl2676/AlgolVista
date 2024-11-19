@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- D3.js Library for Binary Trees -->
+    <!-- D3.js Library for Visualizations -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
@@ -38,17 +38,43 @@
         <main>
             <!-- Data Structure Explorer Section -->
             <section class="data-structure-explorer fade-in-up" id="data-structure-explorer">
-                <h3>Data Structure Explorer: Binary Trees</h3>
-                <div class="tree-container" id="binary-tree-container"></div>
+                <h3>Data Structure Explorer</h3>
+                
+                <!-- Data Structure Selection -->
+                <div class="data-structure-selection">
+                    <label for="data-structure-select">Select Data Structure:</label>
+                    <select id="data-structure-select">
+                        <option value="">--Choose a Data Structure--</option>
+                        <option value="binaryTree">Binary Tree</option>
+                        <option value="binarySearchTree">Binary Search Tree</option>
+                        <option value="linkedList">Linked List</option>
+                        <option value="stack">Stack</option>
+                        <option value="queue">Queue</option>
+                        <option value="graph">Graph</option>
+                        <option value="heap">Heap</option>
+                        <option value="hashTable">Hash Table</option>
+                        <option value="trie">Trie</option>
+                        <option value="redBlackTree">Red-Black Tree</option>
+                    </select>
+                </div>
+                
+                <!-- Visualization Container -->
+                <div class="tree-container" id="tree-container"></div>
+                
+                <!-- Data Structure Description -->
+                <div class="data-structure-description" id="data-structure-description">
+                    <h4>Description:</h4>
+                    <p>Select a data structure to view its description and usage scenarios.</p>
+                </div>
             </section>
         </main>
         
-        <!-- Modal Structure -->
-        <div id="nodeModal" class="modal">
+        <!-- Modal Structure (Optional for Data Structure Details) -->
+        <div id="dataStructureModal" class="modal">
             <div class="modal-content">
                 <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Node Details</h2>
-                <p id="modalBody">Details about the node will appear here.</p>
+                <h2 id="modalTitle">Data Structure Details</h2>
+                <p id="modalBody">Detailed information about the data structure.</p>
             </div>
         </div>
         
