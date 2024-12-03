@@ -54,6 +54,160 @@
                         Imagine you have a small stack of books on your desk that you want to organize by height. Bubble Sort would allow you to repeatedly compare adjacent books and swap them if they're out of order, gradually moving the tallest books to the top.
                     </p>
                 </article>
+
+<!-- Article 2 -->
+<article>
+    <h4>Understanding Quick Sort</h4>
+    <p>
+        Quick Sort is a divide-and-conquer algorithm that works by selecting a pivot element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Efficient for large datasets, typically faster than other algorithms like Bubble Sort or Insertion Sort.</li>
+        <li>Used in situations where average performance is important and space is limited.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you’re trying to sort a set of documents by size. Quick Sort could pick a document as the pivot, and then divide the remaining documents into two groups: smaller and larger ones. These groups are sorted recursively until the entire collection is in order.
+    </p>
+</article>
+
+<!-- Article 3 -->
+<article>
+    <h4>Understanding Merge Sort</h4>
+    <p>
+        Merge Sort is a comparison-based, divide-and-conquer algorithm that divides the array into halves, recursively sorts each half, and then merges the sorted halves back together. It is known for its stable and predictable time complexity.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Large datasets where stable sorting is important.</li>
+        <li>Used when consistent O(n log n) time complexity is required, even in the worst case.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you have a list of customer orders sorted by date. Merge Sort would divide this list into smaller sub-lists, sort them, and then combine them back together in a way that maintains the correct order.
+    </p>
+</article>
+
+                <!-- Article 4 -->
+                <article>
+                    <h4>Understanding Insertion Sort</h4>
+                    <p>
+                        Insertion Sort is a simple comparison-based sorting algorithm that builds the sorted list one element at a time by repeatedly picking the next element and inserting it into the correct position in the sorted portion of the list.
+                    </p>
+                    <h5>Usage Scenarios:</h5>
+                    <ul>
+                        <li>Efficient for small datasets or lists that are already nearly sorted.</li>
+                        <li>Commonly used in applications that require sorting as part of a larger operation, such as small in-memory sorts.</li>
+                    </ul>
+                    <h5>Real-World Example:</h5>
+                    <p>
+                        Imagine you are organizing a stack of flashcards in alphabetical order. Insertion Sort would allow you to take each card and insert it in the proper spot within the already sorted section, one card at a time.
+                    </p>
+                </article>
+
+                <!-- Article 5 -->
+                <article>
+                    <h4>Understanding Selection Sort</h4>
+                    <p>
+                        Selection Sort is a comparison-based sorting algorithm that repeatedly selects the smallest (or largest) element from the unsorted portion of the list and swaps it with the first unsorted element, gradually moving the boundary between sorted and unsorted parts of the list.
+                    </p>
+                    <h5>Usage Scenarios:</h5>
+                    <ul>
+                        <li>Works well for small datasets, where the simplicity of the algorithm is a key advantage.</li>
+                        <li>Used in scenarios where minimizing memory usage is important since it sorts the list in-place.</li>
+                    </ul>
+                    <h5>Real-World Example:</h5>
+                    <p>
+                        Imagine you are organizing a deck of playing cards. Selection Sort would involve looking through all the cards to find the smallest one and moving it to the front. Then, you would repeat this process for the remaining unsorted cards.
+                    </p>
+                </article>
+
+<!-- Article 6 -->
+<article>
+    <h4>Understanding Heap Sort</h4>
+    <p>
+        Heap Sort is a comparison-based sorting algorithm that uses a binary heap data structure to build a heap from the input data and then sorts the data by repeatedly extracting the largest (or smallest) element from the heap and rebuilding the heap.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Efficient for sorting large datasets.</li>
+        <li>Used in applications requiring efficient priority queues, like in scheduling tasks.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you're organizing a priority list of tasks. Heap Sort could be used to keep the highest priority tasks at the top of the list, making it easy to repeatedly pull off the most important task first.
+    </p>
+</article>
+
+<!-- Article 7 -->
+<article>
+    <h4>Understanding Counting Sort</h4>
+    <p>
+        Counting Sort is a non-comparison-based sorting algorithm that sorts elements by counting the number of occurrences of each distinct element in the array. It then uses this count information to place the elements in the correct position in the sorted array.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Efficient when sorting a range of integers with a known upper limit.</li>
+        <li>Used in situations where the range of input data is not too large relative to the number of elements.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you’re sorting students based on their scores in a test. If the test scores are between 0 and 100, Counting Sort can count how many students got each score and then reconstruct the sorted list based on this count.
+    </p>
+</article>
+
+<!-- Article 8 -->
+<article>
+    <h4>Understanding Radix Sort</h4>
+    <p>
+        Radix Sort is a non-comparison-based algorithm that sorts numbers digit by digit, starting from the least significant digit to the most significant. It uses a stable sorting algorithm (often Counting Sort) as a subroutine to sort the digits at each place value.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Efficient for sorting large datasets with integer or fixed-length string keys.</li>
+        <li>Used in applications such as sorting IP addresses, large numerical datasets, and strings.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you're sorting a list of phone numbers. Radix Sort would start by sorting the phone numbers based on the last digit, then the second last digit, and so on, ensuring that the numbers are sorted from least to greatest at each digit place.
+    </p>
+</article>
+
+<!-- Article 9 -->
+<article>
+    <h4>Understanding Shell Sort</h4>
+    <p>
+        Shell Sort is an extension of Insertion Sort that allows the exchange of far apart elements to reduce large gaps in the dataset, making the array partially sorted before performing the final insertion sort. This helps improve performance over regular Insertion Sort.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Efficient for medium-sized datasets where a simple algorithm like Insertion Sort would be too slow.</li>
+        <li>Used when there's a need to perform sorting in an online or low-latency system.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you’re sorting a list of products by price. Shell Sort would allow you to quickly reduce the number of unordered elements, making it easier to organize the prices using simple Insertion Sort at the end.
+    </p>
+</article>
+
+<!-- Article 10 -->
+<article>
+    <h4>Understanding Cocktail Shaker Sort</h4>
+    <p>
+        Cocktail Shaker Sort is a variation of Bubble Sort that sorts in both directions, first from left to right and then from right to left. This bidirectional approach helps move the largest and smallest elements into their correct positions more quickly.
+    </p>
+    <h5>Usage Scenarios:</h5>
+    <ul>
+        <li>Used in situations where Bubble Sort might be too slow but where a simple sorting algorithm is required.</li>
+        <li>Helpful when you want to optimize the typical Bubble Sort's worst-case performance in cases with alternating high and low elements.</li>
+    </ul>
+    <h5>Real-World Example:</h5>
+    <p>
+        Imagine you’re sorting a line of people by height. Cocktail Shaker Sort would repeatedly "bubble" the tallest person to the end and the shortest person to the front, sorting the line from both ends towards the middle.
+    </p>
+</article>
+
                 
                 <!-- Article 2 -->
                 <article>
