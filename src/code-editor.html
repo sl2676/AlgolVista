@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Code Editors - AlgoVista</title>
+
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-    <!-- CodeMirror Theme (Optional) -->
+    <!-- CodeMirror Theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/material.min.css">
 </head>
 <body>
@@ -29,18 +34,36 @@
             <a href="about.html">About</a>
             <a href="contact.html">Contact/Support</a>
         </div>
-        
+
         <!-- Navigation Bar with Explore Button -->
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
         </nav>
-        
+
         <!-- Main Content -->
         <main>
             <!-- Interactive Code Editors Section -->
             <section class="code-editor-section fade-in-up" id="code-editor">
                 <h3>Interactive Code Editors</h3>
+
+                <!-- Language Selection -->
+                <div class="editor-controls">
+                    <label for="language-select">Select Language:</label>
+                    <select id="language-select">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python 3</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                        <option value="c">C</option>
+                        <option value="csharp">C#</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="go">Go</option>
+                    </select>
+                    <button id="run-code">Run Code</button>
+                </div>
+
+                <!-- Editor Container -->
                 <div class="editor-container">
                     <textarea id="code" name="code">
 // Write your code here
@@ -50,57 +73,28 @@ function helloWorld() {
 helloWorld();
                     </textarea>
                 </div>
-                <div class="editor-controls">
-                    <button id="run-code">Run Code</button>
-                </div>
+
+                <!-- Output Container -->
                 <div class="output-container">
                     <h4>Output:</h4>
                     <pre id="output"></pre>
                 </div>
             </section>
         </main>
-        
-        <!-- Modal Structure -->
-        <div id="nodeModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Node Details</h2>
-                <p id="modalBody">Details about the node will appear here.</p>
-            </div>
-        </div>
-        
+
         <!-- CodeMirror JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
-        <!-- CodeMirror JavaScript Mode -->
+        <!-- CodeMirror Modes -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
-        <!-- CodeMirror CSS Mode (Optional) -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"></script>
-        <!-- CodeMirror HTML Mixed Mode (Optional) -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/go/go.min.js"></script>
+        <!-- Additional CodeMirror Addons -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchbrackets.min.js"></script>
+
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
-        <script>
-            // Initialize CodeMirror Editor
-            const editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-                lineNumbers: true,
-                mode: "javascript",
-                theme: "material",
-                autoCloseBrackets: true,
-                matchBrackets: true
-            });
-            
-            // Run Code Functionality
-            document.getElementById('run-code').addEventListener('click', () => {
-                const userCode = editor.getValue();
-                try {
-                    const output = eval(userCode);
-                    document.getElementById('output').textContent = output;
-                } catch (error) {
-                    document.getElementById('output').textContent = error;
-                }
-            });
-        </script>
     </div>
 </body>
 </html>

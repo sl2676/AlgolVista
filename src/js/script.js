@@ -37,6 +37,119 @@
 })();
 
 /* =========================================
+   5. Interactive Code Editor
+   ========================================= */
+(function() {
+    // Supported Languages and their Judge0 IDs and CodeMirror Modes
+    const languages = {
+        javascript: { id: 63, mode: 'javascript', name: 'JavaScript' },
+        python: { id: 71, mode: 'python', name: 'Python 3' },
+        java: { id: 62, mode: 'text/x-java', name: 'Java' },
+        cpp: { id: 54, mode: 'text/x-c++src', name: 'C++' },
+        c: { id: 50, mode: 'text/x-csrc', name: 'C' },
+        csharp: { id: 51, mode: 'text/x-csharp', name: 'C#' },
+        typescript: { id: 74, mode: 'javascript', name: 'TypeScript' },
+        go: { id: 20, mode: 'go', name: 'Go' }
+    };
+
+    const editorElement = document.getElementById('code');
+    const outputElement = document.getElementById('output');
+    const runCodeBtn = document.getElementById('run-code');
+    const languageSelect = document.getElementById('language-select');
+
+    if (editorElement && outputElement && runCodeBtn && languageSelect) {
+        // Initialize CodeMirror Editor
+        let editor = CodeMirror.fromTextArea(editorElement, {
+            lineNumbers: true,
+            mode: languages.javascript.mode,
+            theme: 'material',
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            tabSize: 4,
+            indentUnit: 4,
+            indentWithTabs: true,
+        });
+
+        // Function to get placeholder code based on language
+        const getPlaceholderCode = (lang) => {
+            switch (lang) {
+                case 'javascript':
+                    return `// JavaScript\nconsole.log('Hello, World!');`;
+                case 'python':
+                    return `# Python 3\nprint('Hello, World!')`;
+                case 'java':
+                    return `// Java\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`;
+                case 'cpp':
+                    return `// C++\n#include <iostream>\nint main() {\n    std::cout << "Hello, World!\\n";\n    return 0;\n}`;
+                case 'c':
+                    return `// C\n#include <stdio.h>\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`;
+                case 'csharp':
+                    return `// C#\nusing System;\nclass Program {\n    static void Main() {\n        Console.WriteLine("Hello, World!");\n    }\n}`;
+                case 'typescript':
+                    return `// TypeScript\nconsole.log('Hello, World!');`;
+                case 'go':
+                    return `// Go\npackage main\nimport "fmt"\nfunc main() {\n    fmt.Println("Hello, World!")\n}`;
+                default:
+                    return '';
+            }
+        };
+
+        // Set initial placeholder code
+        editor.setValue(getPlaceholderCode('javascript'));
+
+        // Update Editor Mode and Placeholder Code on Language Change
+        languageSelect.addEventListener('change', (e) => {
+            const selectedLang = e.target.value;
+            editor.setOption('mode', languages[selectedLang].mode);
+            editor.setValue(getPlaceholderCode(selectedLang));
+        });
+
+        // Run Code Functionality
+        runCodeBtn.addEventListener('click', () => {
+            const userCode = editor.getValue();
+            const selectedLang = languageSelect.value;
+            const languageId = languages[selectedLang].id;
+
+            outputElement.textContent = 'Running...';
+
+            const payload = {
+                source_code: userCode,
+                language_id: languageId,
+                stdin: '',
+            };
+
+            fetch('/run-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.stderr) {
+                    outputElement.textContent = data.stderr;
+                } else if (data.compile_output) {
+                    outputElement.textContent = data.compile_output;
+                } else if (data.stdout) {
+                    outputElement.textContent = data.stdout;
+                } else {
+                    outputElement.textContent = 'Execution finished with no output.';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                outputElement.textContent = 'An error occurred while running the code.';
+            });
+        });
+    } else {
+        console.warn('Code Editor elements not found on this page.');
+    }
+})();
+
+
+
+/* =========================================
    4. Data Structure Explorer
    ========================================= */
 (function() {
