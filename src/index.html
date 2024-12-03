@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AlgoVista - Interactive Data Visualization</title>
-    <!-- Link to Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Include both Poppins and Roboto Mono if needed -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Chart.js Library for Dashboard -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Swiper CSS for Testimonials Slider -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- AOS Library for Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Add Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">
@@ -28,35 +40,285 @@
             <a href="contact.html">Contact/Support</a>
         </div>
         
-        <!-- Navigation Bar with Explore Button -->
+        <!-- Navigation Bar with Explore Button and Dark Mode Toggle -->
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
+            <div class="dark-mode-toggle">
+                <input type="checkbox" id="darkModeSwitch">
+                <label for="darkModeSwitch">Dark Mode</label>
+            </div>
         </nav>
         
         <!-- Main Content -->
-        <main>
+        <main class="homepage">
             <!-- Hero Section -->
-            <section class="hero fade-in-up" id="home">
-                <h2 class="hero-title">Welcome to <span>AlgoVista</span></h2>
-                <p>Your interactive platform for visualizing algorithms and data structures.</p>
+            <section class="hero dynamic-bg" id="home">
+                <!-- Background Video -->
+                <video autoplay muted loop id="heroVideo">
+                    <source src="videos/hero-background.mp4" type="video/mp4">
+                </video>
+                <div class="hero-content">
+                    <h2 class="hero-title">Welcome to <span>AlgoVista</span></h2>
+                    <p>Your interactive platform for visualizing algorithms and data structures.</p>
+                    <a href="#features" class="cta-button">Get Started</a>
+                </div>
+                <!-- Custom Cursor -->
+                <div class="custom-cursor"></div>
+                <!-- Hero SVG Illustration -->
+                <div class="hero-illustration">
+                    <img src="images/hero-illustration.svg" alt="Algorithm Illustration">
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features rellax" data-rellax-speed="-2" id="features">
+                <h2 class="section-title">Explore Our Features</h2>
+                <div class="features-container">
+                    <div class="feature-card" data-feature="complexity" data-aos="fade-up">
+                        <i class="fas fa-chart-line feature-icon"></i>
+                        <h3>Complexity Comparison</h3>
+                        <p>Compare algorithm complexities with interactive charts and graphs.</p>
+                        <a href="complexity-dashboard.html" class="feature-link">Learn More</a>
+                    </div>
+                    <div class="feature-card" data-feature="data-structures" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-sitemap feature-icon"></i>
+                        <h3>Data Structure Explorer</h3>
+                        <p>Visualize and interact with various data structures.</p>
+                        <a href="data-structure-explorer.html" class="feature-link">Learn More</a>
+                    </div>
+                    <div class="feature-card" data-feature="algorithm-visualizer" data-aos="fade-up" data-aos-delay="200">
+                        <i class="fas fa-code feature-icon"></i>
+                        <h3>Algorithm Visualizer</h3>
+                        <p>Step through algorithms to see how they work in real time.</p>
+                        <a href="algorithm-visualizer.html" class="feature-link">Learn More</a>
+                    </div>
+                    <div class="feature-card" data-feature="code-editors" data-aos="fade-up" data-aos-delay="300">
+                        <i class="fas fa-laptop-code feature-icon"></i>
+                        <h3>Interactive Code Editors</h3>
+                        <p>Write and execute code in multiple programming languages.</p>
+                        <a href="code-editor.html" class="feature-link">Learn More</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modals for Features -->
+            <div class="modal" id="modal-complexity">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Complexity Comparison</h2>
+                    <p>Detailed information about the Complexity Comparison feature...</p>
+                </div>
+            </div>
+            <div class="modal" id="modal-data-structures">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Data Structure Explorer</h2>
+                    <p>Detailed information about the Data Structure Explorer feature...</p>
+                </div>
+            </div>
+            <div class="modal" id="modal-algorithm-visualizer">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Algorithm Visualizer</h2>
+                    <p>Detailed information about the Algorithm Visualizer feature...</p>
+                </div>
+            </div>
+            <div class="modal" id="modal-code-editors">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Interactive Code Editors</h2>
+                    <p>Detailed information about the Interactive Code Editors feature...</p>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <section class="testimonials" data-rellax-speed="1">
+                <h2 class="section-title">What Our Users Say</h2>
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Testimonial Slide -->
+                        <div class="swiper-slide">
+                            <p>"AlgoVista has transformed the way I learn algorithms."</p>
+                            <h4>- Jane Doe, Student</h4>
+                        </div>
+                        <div class="swiper-slide">
+                            <p>"An indispensable tool for visualizing complex data structures."</p>
+                            <h4>- John Smith, Developer</h4>
+                        </div>
+                        <!-- Add more slides as needed -->
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </section>
+
+            <!-- Latest Articles Section -->
+            <section class="latest-articles" data-rellax-speed="-1">
+                <h2 class="section-title">Latest Articles</h2>
+                <div class="articles-container">
+                    <!-- Articles will be dynamically loaded here -->
+                </div>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="cta-section dynamic-bg">
+                <h2>Ready to Dive In?</h2>
+                <p>Explore algorithms and data structures like never before.</p>
+                <a href="algorithm-visualizer.html" class="cta-button">Start Visualizing</a>
             </section>
         </main>
         
-        <!-- Modal Structure -->
-        <div id="nodeModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Node Details</h2>
-                <p id="modalBody">Details about the node will appear here.</p>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <span>AlgoVista</span>
+                </div>
+                <div class="footer-links">
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
             </div>
-        </div>
-        
-        <!-- D3.js Library -->
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <!-- Link to Custom Script -->
-        <script src="js/script.js"></script>
+            <div class="footer-bottom">
+                <p>&copy; 2023 AlgoVista. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
+
+    <!-- Libraries -->
+    <!-- D3.js Library (if needed) -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- AOS Library for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Swiper JS for Testimonials Slider -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- Rellax.js for Parallax Scrolling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+    <!-- GSAP Library for Advanced Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/gsap.min.js"></script>
+    <!-- Lottie Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+    <!-- ScrollReveal.js for Scroll Animations -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- tsParticles for Particle Effects -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.2.3/dist/tsparticles.min.js"></script>
+    <!-- Link to Custom Script -->
+    <script src="js/script.js"></script>
+
+    <!-- Initialize Libraries and Scripts -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: true,
+        });
+
+        // Initialize Rellax
+        var rellax = new Rellax('.rellax');
+
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            autoplay: {
+                delay: 5000,
+            },
+        });
+
+        // Initialize ScrollReveal
+        ScrollReveal().reveal('.feature-card', {
+            interval: 100,
+            distance: '50px',
+            origin: 'bottom',
+            duration: 800,
+            easing: 'ease-in-out',
+        });
+
+        // GSAP Animations
+        gsap.from(".hero-title", { duration: 1, y: -50, opacity: 0 });
+        gsap.from(".hero p", { duration: 1, y: 50, opacity: 0, delay: 0.5 });
+        gsap.from(".cta-button", { duration: 1, scale: 0, opacity: 0, delay: 1 });
+
+        // Load Lottie Animation
+        lottie.loadAnimation({
+            container: document.getElementById('lottie-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'animations/animation.json' // Replace with your animation file path
+        });
+
+        // Custom Cursor Implementation
+        const cursor = document.querySelector('.custom-cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.left = e.clientX + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform += ' scale(0.8)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = cursor.style.transform.replace(' scale(0.8)', '');
+        });
+
+        // Hover Effects on Interactive Elements
+        document.querySelectorAll('a, button').forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '40px';
+                cursor.style.height = '40px';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+            });
+        });
+
+        // Load Articles
+        const articles = [
+            {
+                title: "Understanding Big O Notation",
+                excerpt: "A beginner's guide to algorithm complexity.",
+                link: "#"
+            },
+            {
+                title: "Sorting Algorithms Explained",
+                excerpt: "An in-depth look at various sorting techniques.",
+                link: "#"
+            },
+            {
+                title: "Mastering Data Structures",
+                excerpt: "Essential data structures for every developer.",
+                link: "#"
+            },
+            // Add more articles as needed
+        ];
+
+        const articlesContainer = document.querySelector('.articles-container');
+
+        articles.forEach(article => {
+            const articleCard = document.createElement('div');
+            articleCard.classList.add('article-card');
+
+            articleCard.innerHTML = `
+                <h3>${article.title}</h3>
+                <p>${article.excerpt}</p>
+                <a href="${article.link}">Read More</a>
+            `;
+
+            articlesContainer.appendChild(articleCard);
+        });
+    </script>
 </body>
 </html>
 

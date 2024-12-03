@@ -24,6 +24,7 @@
         <!-- Sliding Navigation Bar -->
         <div id="sideNav" class="side-nav">
             <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
+            <a href="index.html">Home</a>
             <a href="complexity-dashboard.html">Complexity Comparison</a>
             <a href="data-structure-explorer.html">Data Structure Explorer</a>
             <a href="algorithm-visualizer.html">Algorithm Visualizer</a>
@@ -37,13 +38,18 @@
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
+            <!-- Dark Mode Toggle -->
+            <div class="dark-mode-toggle">
+                <label for="darkModeSwitch">Dark Mode</label>
+                <input type="checkbox" id="darkModeSwitch">
+            </div>
         </nav>
 
         <!-- Main Content -->
         <main>
             <!-- Data Structure Explorer Section -->
-            <section class="data-structure-explorer fade-in-up" id="data-structure-explorer">
-                <h3>Data Structure Explorer</h3>
+            <section class="data-structure-explorer" id="data-structure-explorer">
+                <h2>Data Structure Explorer</h2>
 
                 <!-- Data Structure Selection -->
                 <div class="data-structure-selection">
@@ -64,15 +70,41 @@
                 </div>
 
                 <!-- Visualization Container -->
-                <div class="tree-container" id="tree-container"></div>
+                <div class="visualization-container">
+                    <div class="tree-container" id="tree-container"></div>
+                    <!-- Zoom Controls -->
+                    <div class="zoom-controls">
+                        <button id="zoom-in"><i class="fas fa-search-plus"></i></button>
+                        <button id="zoom-out"><i class="fas fa-search-minus"></i></button>
+                        <button id="reset-zoom"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                </div>
 
-                <!-- Data Structure Description -->
-                <div class="data-structure-description" id="data-structure-description">
-                    <h4>Description:</h4>
-                    <p>Select a data structure to view its description and usage scenarios.</p>
+                <!-- Tabs for Description, Operations, and Complexities -->
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-link active" data-tab="description">Description</button>
+                        <button class="tab-link" data-tab="operations">Operations</button>
+                        <button class="tab-link" data-tab="complexities">Complexities</button>
+                    </div>
+                    <div class="tab-content" id="description-tab">
+                        <h4>Description:</h4>
+                        <p>Select a data structure to view its description and usage scenarios.</p>
+                    </div>
+                    <div class="tab-content" id="operations-tab">
+                        <h4>Operations:</h4>
+                        <p>Select a data structure to view its common operations.</p>
+                    </div>
+                    <div class="tab-content" id="complexities-tab">
+                        <h4>Complexities:</h4>
+                        <p>Select a data structure to view its time and space complexities.</p>
+                    </div>
                 </div>
             </section>
         </main>
+
+        <!-- Custom Cursor -->
+        <div class="custom-cursor"></div>
 
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>

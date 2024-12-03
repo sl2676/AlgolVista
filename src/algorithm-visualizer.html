@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algorithm Visualizer - AlgoVista</title>
+
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <!-- D3.js Library for Visualizations -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
@@ -27,66 +32,82 @@
             <a href="about.html">About</a>
             <a href="contact.html">Contact/Support</a>
         </div>
-        
+
         <!-- Navigation Bar with Explore Button -->
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
+            <!-- Dark Mode Toggle -->
+            <div class="dark-mode-toggle">
+                <label for="darkModeSwitch">Dark Mode</label>
+                <input type="checkbox" id="darkModeSwitch">
+            </div>
         </nav>
-        
+
         <!-- Main Content -->
         <main>
             <!-- Algorithm Visualizer Section -->
             <section class="algorithm-visualizer fade-in-up" id="algorithm-visualizer">
-                <h3>Algorithm Visualizer</h3>
-                
-                <!-- Algorithm Selection -->
-                <div class="algorithm-selection">
-                    <label for="algorithm-select">Select Algorithm:</label>
-                	<select id="algorithm-select">
-    <option value="">--Choose an Algorithm--</option>
-    <option value="Bubble Sort">Bubble Sort</option>
-    <option value="Quick Sort">Quick Sort</option>
-    <option value="Merge Sort">Merge Sort</option>
-    <option value="Insertion Sort">Insertion Sort</option>
-    <option value="Selection Sort">Selection Sort</option>
-    <option value="Heap Sort">Heap Sort</option>
-    <option value="Counting Sort">Counting Sort</option>
-    <option value="Radix Sort">Radix Sort</option>
-    <option value="Shell Sort">Shell Sort</option>
-    <option value="Cocktail Shaker Sort">Cocktail Shaker Sort</option>
-</select>
+                <h2>Algorithm Visualizer</h2>
 
-				</div>
-                
-                <!-- Controls -->
-                <div class="visualizer-controls">
-                    <button id="start-visualizer">Start</button>
-                    <button id="pause-visualizer">Pause</button>
-                    <button id="reset-visualizer">Reset</button>
+                <!-- Algorithm Selection and Controls -->
+                <div class="visualizer-top">
+                    <!-- Algorithm Selection -->
+                    <div class="algorithm-selection">
+                        <label for="algorithm-select">Select Algorithm:</label>
+                        <select id="algorithm-select">
+                            <option value="">--Choose an Algorithm--</option>
+                            <option value="Bubble Sort">Bubble Sort</option>
+                            <option value="Quick Sort">Quick Sort</option>
+                            <option value="Merge Sort">Merge Sort</option>
+                            <option value="Insertion Sort">Insertion Sort</option>
+                            <option value="Selection Sort">Selection Sort</option>
+                            <option value="Heap Sort">Heap Sort</option>
+                            <option value="Counting Sort">Counting Sort</option>
+                            <option value="Radix Sort">Radix Sort</option>
+                            <option value="Shell Sort">Shell Sort</option>
+                            <option value="Cocktail Shaker Sort">Cocktail Shaker Sort</option>
+                        </select>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="visualizer-controls">
+                        <button id="start-sort-btn"><i class="fas fa-play"></i> Start</button>
+                        <button id="reset-sort-btn"><i class="fas fa-redo"></i> Reset</button>
+                    </div>
                 </div>
-                
+
                 <!-- Visualization Container -->
-                <div class="visualizer-container" id="visualizer-container"></div>
-                
-                <!-- Algorithm Description -->
-                <div class="algorithm-description" id="algorithm-description">
-                    <h4>Description:</h4>
-                    <p>Select an algorithm to view its description and usage scenarios.</p>
+                <div class="visualizer-container" id="visualizer-container">
+                    <!-- Bars will be generated here -->
+                </div>
+
+                <!-- Algorithm Description and Code Tabs -->
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-link active" data-tab="description">Description</button>
+                        <button class="tab-link" data-tab="pseudocode">Pseudocode</button>
+                        <button class="tab-link" data-tab="complexity">Complexity</button>
+                    </div>
+                    <div class="tab-content active" id="description-tab">
+                        <h4>Description:</h4>
+                        <p>Select an algorithm to view its description and usage scenarios.</p>
+                    </div>
+                    <div class="tab-content" id="pseudocode-tab">
+                        <h4>Pseudocode:</h4>
+                        <pre><code>Select an algorithm to view its pseudocode.</code></pre>
+                    </div>
+                    <div class="tab-content" id="complexity-tab">
+                        <h4>Complexity:</h4>
+                        <p>Select an algorithm to view its time and space complexities.</p>
+                    </div>
                 </div>
             </section>
         </main>
-        
-        <!-- Modal Structure (Optional for Algorithm Details) -->
-        <div id="algorithmModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Algorithm Details</h2>
-                <p id="modalBody">Detailed information about the algorithm.</p>
-            </div>
-        </div>
-        
-        <!-- D3.js Library (Already included in head) -->
+
+        <!-- Custom Cursor -->
+        <div class="custom-cursor"></div>
+
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
     </div>

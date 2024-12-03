@@ -4,7 +4,7 @@
     <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Code Editors - AlgoVista</title>
+    <title>Interactive Code Editor - AlgoVista</title>
 
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
@@ -19,7 +19,10 @@
     <!-- CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
     <!-- CodeMirror Theme -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/material.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css">
+
+    <!-- Prism CSS for Syntax Highlighting in Output -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" />
 </head>
 <body>
     <div class="container">
@@ -29,7 +32,7 @@
             <a href="complexity-dashboard.html">Complexity Comparison</a>
             <a href="data-structure-explorer.html">Data Structure Explorer</a>
             <a href="algorithm-visualizer.html">Algorithm Visualizer</a>
-            <a href="code-editor.html">Interactive Code Editors</a>
+            <a href="code-editor.html">Interactive Code Editor</a>
             <a href="educational-resources.html">Educational Resources</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact/Support</a>
@@ -39,34 +42,65 @@
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
+            <!-- Dark Mode Toggle -->
+            <div class="dark-mode-toggle">
+                <label for="darkModeSwitch">Dark Mode</label>
+                <input type="checkbox" id="darkModeSwitch">
+            </div>
         </nav>
 
         <!-- Main Content -->
         <main>
-            <!-- Interactive Code Editors Section -->
+            <!-- Interactive Code Editor Section -->
             <section class="code-editor-section fade-in-up" id="code-editor">
-                <h3>Interactive Code Editors</h3>
+                <h2>Interactive Code Editor</h2>
 
-                <!-- Language Selection -->
-                <div class="editor-controls">
-                    <label for="language-select">Select Language:</label>
-                    <select id="language-select">
-                        <option value="javascript">JavaScript</option>
-                        <option value="python">Python 3</option>
-                        <option value="java">Java</option>
-                        <option value="cpp">C++</option>
-                        <option value="c">C</option>
-                        <option value="csharp">C#</option>
-                        <option value="typescript">TypeScript</option>
-                        <option value="go">Go</option>
-                    </select>
-                    <button id="run-code">Run Code</button>
+                <!-- Editor Top Controls -->
+                <div class="editor-top">
+                    <!-- Language Selection -->
+                    <div class="editor-controls">
+                        <label for="language-select">Language:</label>
+                        <select id="language-select">
+                            <option value="javascript">JavaScript</option>
+                            <option value="python">Python 3</option>
+                            <option value="java">Java</option>
+                            <option value="cpp">C++</option>
+                            <option value="c">C</option>
+                            <option value="csharp">C#</option>
+                            <option value="typescript">TypeScript</option>
+                            <option value="go">Go</option>
+                        </select>
+                    </div>
+
+                    <!-- Theme Selection -->
+                    <div class="editor-controls">
+                        <label for="theme-select">Theme:</label>
+                        <select id="theme-select">
+                            <option value="default">Default</option>
+                            <option value="dracula" selected>Dracula</option>
+                            <option value="material">Material</option>
+                            <option value="monokai">Monokai</option>
+                            <option value="eclipse">Eclipse</option>
+                        </select>
+                    </div>
+
+                    <!-- Font Size Slider -->
+                    <div class="editor-controls">
+                        <label for="font-size-range">Font Size:</label>
+                        <input type="range" id="font-size-range" min="12" max="24" value="14">
+                    </div>
+
+                    <!-- Run and Reset Buttons -->
+                    <div class="editor-buttons">
+                        <button id="run-code"><i class="fas fa-play"></i> Run Code</button>
+                        <button id="reset-code"><i class="fas fa-redo"></i> Reset</button>
+                    </div>
                 </div>
 
                 <!-- Editor Container -->
                 <div class="editor-container">
                     <textarea id="code" name="code">
-// Write your code here
+// Write your JavaScript code here
 function helloWorld() {
     console.log("Hello, World!");
 }
@@ -92,6 +126,18 @@ helloWorld();
         <!-- Additional CodeMirror Addons -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/matchbrackets.min.js"></script>
+
+        <!-- Prism JS for Syntax Highlighting in Output -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
 
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>

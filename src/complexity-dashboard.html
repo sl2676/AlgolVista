@@ -37,13 +37,18 @@
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
+            <!-- Dark Mode Toggle -->
+            <div class="dark-mode-toggle">
+                <label for="darkModeSwitch">Dark Mode</label>
+                <input type="checkbox" id="darkModeSwitch">
+            </div>
         </nav>
 
         <!-- Main Content -->
         <main>
             <!-- Complexity Comparison Dashboard Section -->
             <section class="complexity-dashboard fade-in-up" id="complexity-dashboard">
-                <h3>Complexity Comparison Dashboard</h3>
+                <h2>Complexity Comparison Dashboard</h2>
                 <div class="dashboard-container">
                     <!-- Left Sidebar for Algorithm Selection -->
                     <div class="algorithm-list">
@@ -51,6 +56,12 @@
                         <ul id="algorithm-checkboxes">
                             <!-- Algorithms will be populated here via JavaScript -->
                         </ul>
+                        <!-- Input Size Range Slider -->
+                        <div class="input-size-slider">
+                            <label for="input-size-range">Input Size Range:</label>
+                            <input type="range" id="input-size-range" min="10" max="1000" step="10" value="500">
+                            <span id="input-size-value">500</span>
+                        </div>
                     </div>
 
                     <!-- Right Section -->
@@ -58,6 +69,10 @@
                         <!-- Graph Area -->
                         <div class="dashboard-charts">
                             <canvas id="complexity-chart"></canvas>
+                            <!-- Chart Controls -->
+                            <div class="chart-controls">
+                                <button id="toggle-scale">Switch to Linear Scale</button>
+                            </div>
                         </div>
 
                         <!-- Big O Notation Area -->
@@ -71,6 +86,9 @@
                 </div>
             </section>
         </main>
+
+        <!-- Custom Cursor -->
+        <div class="custom-cursor"></div>
 
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
