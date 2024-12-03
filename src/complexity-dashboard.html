@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complexity Comparison Dashboard - AlgoVista</title>
+
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <!-- Chart.js Library for Dashboard -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -27,52 +32,46 @@
             <a href="about.html">About</a>
             <a href="contact.html">Contact/Support</a>
         </div>
-        
+
         <!-- Navigation Bar with Explore Button -->
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
         </nav>
-        
+
         <!-- Main Content -->
         <main>
             <!-- Complexity Comparison Dashboard Section -->
             <section class="complexity-dashboard fade-in-up" id="complexity-dashboard">
                 <h3>Complexity Comparison Dashboard</h3>
-                <div class="dashboard-controls">
-                    <select id="algorithm-select-1">
-                        <option value="">Select Algorithm 1</option>
-                        <option value="Bubble Sort">Bubble Sort</option>
-                        <option value="Quick Sort">Quick Sort</option>
-                        <option value="Merge Sort">Merge Sort</option>
-                        <!-- Add more algorithms as needed -->
-                    </select>
-                    <select id="algorithm-select-2">
-                        <option value="">Select Algorithm 2</option>
-                        <option value="Bubble Sort">Bubble Sort</option>
-                        <option value="Quick Sort">Quick Sort</option>
-                        <option value="Merge Sort">Merge Sort</option>
-                        <!-- Add more algorithms as needed -->
-                    </select>
-                    <button id="compare-button">Compare</button>
-                </div>
-                <div class="dashboard-charts">
-                    <canvas id="time-complexity-chart"></canvas>
-                    <canvas id="space-complexity-chart"></canvas>
+                <div class="dashboard-container">
+                    <!-- Left Sidebar for Algorithm Selection -->
+                    <div class="algorithm-list">
+                        <h4>Select Algorithms:</h4>
+                        <ul id="algorithm-checkboxes">
+                            <!-- Algorithms will be populated here via JavaScript -->
+                        </ul>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="dashboard-right">
+                        <!-- Graph Area -->
+                        <div class="dashboard-charts">
+                            <canvas id="complexity-chart"></canvas>
+                        </div>
+
+                        <!-- Big O Notation Area -->
+                        <div class="big-o-notation">
+                            <h4>Algorithmic Complexities:</h4>
+                            <div id="big-o-container">
+                                <!-- Big O Notations will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
-        
-        <!-- Modal Structure -->
-        <div id="nodeModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Node Details</h2>
-                <p id="modalBody">Details about the node will appear here.</p>
-            </div>
-        </div>
-        
-        <!-- Chart.js Library for Dashboard (Already included in head) -->
+
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
     </div>

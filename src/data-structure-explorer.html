@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Structure Explorer - AlgoVista</title>
+
     <!-- Link to Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <!-- D3.js Library for Visualizations -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
@@ -27,40 +32,40 @@
             <a href="about.html">About</a>
             <a href="contact.html">Contact/Support</a>
         </div>
-        
+
         <!-- Navigation Bar with Explore Button -->
         <nav class="navbar">
             <span class="openbtn" id="openNav">&#9776; Explore</span>
             <div class="navbar-brand">AlgoVista</div>
         </nav>
-        
+
         <!-- Main Content -->
         <main>
             <!-- Data Structure Explorer Section -->
             <section class="data-structure-explorer fade-in-up" id="data-structure-explorer">
                 <h3>Data Structure Explorer</h3>
-                
+
                 <!-- Data Structure Selection -->
                 <div class="data-structure-selection">
                     <label for="data-structure-select">Select Data Structure:</label>
                     <select id="data-structure-select">
                         <option value="">--Choose a Data Structure--</option>
-                        <option value="binaryTree">Binary Tree</option>
-                        <option value="binarySearchTree">Binary Search Tree</option>
-                        <option value="linkedList">Linked List</option>
-                        <option value="stack">Stack</option>
-                        <option value="queue">Queue</option>
-                        <option value="graph">Graph</option>
-                        <option value="heap">Heap</option>
-                        <option value="hashTable">Hash Table</option>
-                        <option value="trie">Trie</option>
-                        <option value="redBlackTree">Red-Black Tree</option>
+                        <option value="Binary Tree">Binary Tree</option>
+                        <option value="Binary Search Tree">Binary Search Tree</option>
+                        <option value="Linked List">Linked List</option>
+                        <option value="Stack">Stack</option>
+                        <option value="Queue">Queue</option>
+                        <option value="Graph">Graph</option>
+                        <option value="Heap">Heap</option>
+                        <option value="Hash Table">Hash Table</option>
+                        <option value="Trie">Trie</option>
+                        <option value="Red-Black Tree">Red-Black Tree</option>
                     </select>
                 </div>
-                
+
                 <!-- Visualization Container -->
                 <div class="tree-container" id="tree-container"></div>
-                
+
                 <!-- Data Structure Description -->
                 <div class="data-structure-description" id="data-structure-description">
                     <h4>Description:</h4>
@@ -68,17 +73,7 @@
                 </div>
             </section>
         </main>
-        
-        <!-- Modal Structure (Optional for Data Structure Details) -->
-        <div id="dataStructureModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2 id="modalTitle">Data Structure Details</h2>
-                <p id="modalBody">Detailed information about the data structure.</p>
-            </div>
-        </div>
-        
-        <!-- D3.js Library (Already included in head) -->
+
         <!-- Link to Custom Script -->
         <script src="js/script.js"></script>
     </div>

@@ -18,6 +18,18 @@
     --text-color: #333333;
 }
 
+/* Visualization Container */
+.tree-container {
+    width: 100%;
+    height: 500px;
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 5px;
+    background-color: var(--background-color);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+
 /* Import Google Fonts */
 body {
     font-family: 'Poppins', Arial, sans-serif;
@@ -168,5 +180,137 @@ section h4, section h5 {
     background-color: var(--primary-color);
     margin: 1px;
     transition: height 0.3s, background-color 0.3s;
+}
+
+/* =========================================
+   Complexity Comparison Dashboard Styles
+   ========================================= */
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    margin-top: 20px;
+    background-color: var(--white);
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Left Sidebar for Algorithm List */
+.algorithm-list {
+    width: 25%;
+    padding: 20px;
+    background-color: var(--light-mint-green);
+    border-right: 1px solid var(--muted-gray-green);
+}
+
+.algorithm-list h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.algorithm-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.algorithm-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.algorithm-list input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.algorithm-list label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Right Section */
+.dashboard-right {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Graph Area */
+.dashboard-charts {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.dashboard-charts canvas {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: var(--background-color);
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 5px;
+}
+
+/* Big O Notation Area */
+.big-o-notation {
+    width: 100%;
+}
+
+.big-o-notation h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+#big-o-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.big-o-card {
+    background-color: var(--white);
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: calc(48% - 10px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.big-o-card h5 {
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+    font-size: 18px;
+}
+
+.big-o-card p {
+    margin: 5px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .algorithm-list, .dashboard-right {
+        width: 100%;
+    }
+
+    #big-o-container {
+        flex-direction: column;
+    }
+
+    .big-o-card {
+        width: 100%;
+    }
 }
 
