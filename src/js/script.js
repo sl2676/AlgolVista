@@ -39,6 +39,54 @@
 })();
 
 /* =========================================
+   Light Mode Toggle Functionality with Persistence
+========================================= */
+(function() {
+    const lightModeSwitch = document.getElementById('lightModeSwitch');
+
+    // Function to enable light mode
+    const enableLightMode = () => {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('lightMode', 'enabled');
+    };
+
+    // Function to disable light mode
+    const disableLightMode = () => {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('lightMode', 'disabled');
+    };
+
+    // Check localStorage on page load
+    const lightMode = localStorage.getItem('lightMode');
+    if (lightMode === 'enabled') {
+        enableLightMode();
+        if (lightModeSwitch) {
+            lightModeSwitch.checked = true;
+        }
+    } else {
+        disableLightMode();
+        if (lightModeSwitch) {
+            lightModeSwitch.checked = false;
+        }
+    }
+
+    // Event Listener for toggle switch
+    if (lightModeSwitch) {
+        lightModeSwitch.addEventListener('change', () => {
+            if (lightModeSwitch.checked) {
+                enableLightMode();
+            } else {
+                disableLightMode();
+            }
+        });
+    } else {
+        console.warn('Light mode switch element not found on this page.');
+    }
+})();
+
+
+
+/* =========================================
    Dark Mode Toggle Functionality with Persistence
    ========================================= */
 (function() {

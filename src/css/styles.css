@@ -1,27 +1,26 @@
-/* Define Color Scheme Variables */
+/* Define Color Scheme Variables (Dark Mode by Default) */
 :root {
-    --dark-gray: #656565;
-    --muted-gray-green: #808782;
-    --soft-green: #A6D3A0;
-    --light-mint-green: #D1FFD7;
-    --light-green: #B3FFB3;
-    --tree-color-left: #FF6F61; /* Coral */
-    --tree-color-right: #6B5B95; /* Indigo */
-    --hover-color-left: #FF8C69; /* Darker Coral */
-    --hover-color-right: #8365C9; /* Darker Indigo */
-    --white: #FFFFFF;
+    --dark-gray: #a0a0a0;
+    --muted-gray-green: #6b6b6b;
+    --soft-green: #03dac6; /* Updated for dark mode */
+    --light-mint-green: #333333;
+    --light-green: #6b6b6b;
+    --tree-color-left: #bb86fc; /* Coral --> primary color */
+    --tree-color-right: #03dac6; /* Indigo --> secondary color */
+    --hover-color-left: #03dac6; /* Darker Coral --> secondary color */
+    --hover-color-right: #3700b3; /* Darker Indigo --> accent color */
+    --white: #1e1e1e;
     --black: #000000;
-    --background-color: #F5F5F5;
-    --primary-color: #6B5B95; /* Indigo */
-    --secondary-color: #FF6F61; /* Coral */
-    --accent-color: #A6D3A0; /* Soft Green */
-    --text-color: #333333;
+    --background-color: #121212;
+    --primary-color: #bb86fc; /* Indigo */
+    --secondary-color: #03dac6; /* Coral */
+    --accent-color: #3700b3; /* Soft Green */
+    --text-color: #e0e0e0;
 }
-
 
 /* =========================================
    Data Structure Explorer Specific Styles
-   ========================================= */
+========================================= */
 
 /* Data Structure Selection */
 .data-structure-selection {
@@ -42,11 +41,13 @@
     border: 1px solid var(--muted-gray-green);
     border-radius: 5px;
     transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
 .data-structure-selection select:focus {
     border-color: var(--secondary-color);
-    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+    box-shadow: 0 0 5px rgba(3, 218, 198, 0.5);
     outline: none;
 }
 
@@ -92,7 +93,7 @@
 
 /* Tabs Container */
 .tabs-container {
-    background-color: var(--white);
+    background-color: var(--background-color);
     border: 1px solid var(--muted-gray-green);
     border-radius: 10px;
     padding: 20px;
@@ -163,35 +164,16 @@
     z-index: 1000;
 }
 
-/* Dark Mode Adjustments */
-body.dark-mode .data-structure-selection select {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .tree-container {
-    background-color: var(--white);
-}
-
-body.dark-mode .tabs-container {
-    background-color: var(--white);
-}
-
-body.dark-mode .node-tooltip {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-
 /* Import Google Fonts */
 body {
     font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--background-color); /* Light gray background */
+    background-color: var(--background-color); /* Dark background */
     color: var(--text-color);
     scroll-behavior: smooth; /* Smooth scrolling */
     overflow-x: hidden; /* Prevent horizontal scroll */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Container */
@@ -220,13 +202,14 @@ body {
     padding: 15px 30px;
     text-decoration: none;
     font-size: 18px;
-    color: var(--primary-color);
+    color: var(--text-color);
     display: block;
     transition: background-color 0.3s, color 0.3s;
+    background-color: var(--background-color);
 }
 
 .side-nav a:hover {
-    background-color: var(--accent-color);
+    background-color: var(--secondary-color);
     color: var(--white);
 }
 
@@ -237,11 +220,11 @@ body {
     font-size: 36px;
     margin-left: 50px;
     cursor: pointer;
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .side-nav .closebtn:hover {
-    color: var(--secondary-color);
+    color: var(--accent-color);
 }
 
 /* Open Button */
@@ -273,6 +256,7 @@ body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
 }
 
 .navbar-brand {
@@ -303,9 +287,10 @@ main {
 section {
     margin: 40px 0;
     padding: 20px;
-    background-color: var(--white);
+    background-color: var(--background-color);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 section h2 {
@@ -329,40 +314,12 @@ section p {
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 20px;
+    color: var(--text-color);
 }
-/*
-.algorithm-selection label {
-    margin-right: 10px;
-}
-
-.algorithm-selection select {
-    border: 2px solid var(--primary-color);
-    transition: border-color 0.3s;
-}
-
-.visualizer-container {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-evenly;
-    background-color: var(--light-mint-green);
-    border: 2px solid var(--muted-gray-green);
-    height: 400px;
-    border-radius: 5px;
-}
-
-.bar {
-    display: inline-block;
-    background-color: var(--primary-color);
-    margin: 1px;
-    transition: height 0.3s, background-color 0.3s;
-}
-*/
-
-/* ... (Existing styles above remain unchanged) */
 
 /* =========================================
    Algorithm Visualizer Specific Styles
-   ========================================= */
+========================================= */
 
 /* Algorithm Visualizer Section */
 .algorithm-visualizer h2 {
@@ -398,11 +355,13 @@ section p {
     border: 1px solid var(--muted-gray-green);
     border-radius: 5px;
     transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
 .algorithm-selection select:focus {
     border-color: var(--secondary-color);
-    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+    box-shadow: 0 0 5px rgba(3, 218, 198, 0.5);
     outline: none;
 }
 
@@ -452,6 +411,7 @@ section p {
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Bars */
@@ -461,16 +421,15 @@ section p {
     transition: height 0.3s, background-color 0.3s;
     width: 10px; /* Added width */
     display: inline-block;
-    /* Optional max-width */
-    /* max-width: 20px; */
 }
 
 /* Tabs Container */
 .tabs-container {
-    background-color: var(--white);
+    background-color: var(--background-color);
     border: 1px solid var(--muted-gray-green);
     border-radius: 10px;
     padding: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .tabs {
@@ -516,6 +475,7 @@ section p {
 .tab-content pre {
     font-size: 16px;
     line-height: 1.6;
+    color: var(--text-color);
 }
 
 .tab-content pre {
@@ -526,430 +486,139 @@ section p {
 }
 
 /* =========================================
-   Dark Mode Styles
+   Interactive Code Editor Specific Styles
 ========================================= */
 
-body.dark-mode {
-    --background-color: #121212;
-    --text-color: #e0e0e0;
-    --white: #1e1e1e;
-    --primary-color: #bb86fc; /* Updated for dark mode */
-    --secondary-color: #03dac6; /* Updated for dark mode */
-    --accent-color: #3700b3; /* Updated for dark mode */
-    --dark-gray: #a0a0a0; /* Ensures readability */
-    --muted-gray-green: #6b6b6b; /* Darker shade for muted elements */
-}
-
-/* General Elements */
-body.dark-mode {
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-body.dark-mode a {
-    color: var(--secondary-color);
-}
-
-body.dark-mode a:hover {
-    color: var(--accent-color);
-}
-
-/* Navigation Bar */
-body.dark-mode .navbar {
-    background-color: var(--primary-color);
-}
-
-body.dark-mode .navbar-brand {
-    color: var(--white);
-}
-
-body.dark-mode .side-nav {
-    background-color: var(--white); /* Switch to lighter background in dark mode for better contrast */
-}
-
-body.dark-mode .side-nav a {
-    color: var(--text-color);
-}
-
-body.dark-mode .side-nav a:hover {
-    background-color: var(--secondary-color);
-    color: var(--white);
-}
-
-/* Feature Cards */
-body.dark-mode .feature-card {
-    background: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-color);
-}
-
-body.dark-mode .feature-card p {
-    color: var(--dark-gray);
-}
-
-/* Modals */
-body.dark-mode .modal {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-body.dark-mode .modal-content {
-    background-color: #1e1e1e;
-    color: var(--text-color);
-    border: 1px solid #333;
-}
-
-body.dark-mode .modal-content pre {
-    background-color: #333;
-    color: #e0e0e0;
-}
-
-body.dark-mode .close-modal {
-    color: var(--secondary-color);
-}
-
-body.dark-mode .close-modal:hover,
-body.dark-mode .close-modal:focus {
-    color: var(--accent-color);
-}
-
-/* Testimonials */
-body.dark-mode .swiper-slide {
-    background-color: #1e1e1e;
-    color: var(--text-color);
-}
-
-body.dark-mode .swiper-slide p {
-    color: var(--text-color);
-}
-
-body.dark-mode .swiper-slide h4 {
-    color: var(--muted-gray-green);
-}
-
-/* Latest Articles */
-body.dark-mode .latest-articles {
-    background-color: #1e1e1e;
-}
-
-body.dark-mode .article-card {
-    background-color: #2c2c2c;
-    border: 1px solid #444;
-    color: var(--text-color);
-}
-
-body.dark-mode .article-card a {
-    color: var(--secondary-color);
-}
-
-body.dark-mode .article-card a:hover {
-    color: var(--accent-color);
-}
-
-/* Call to Action */
-body.dark-mode .cta-section {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-    color: var(--white);
-}
-
-body.dark-mode .cta-section .cta-button {
-    background-color: var(--accent-color);
-    color: var(--white);
-}
-
-body.dark-mode .cta-section .cta-button:hover {
-    background-color: var(--white);
+/* Code Editor Section */
+.code-editor-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
     color: var(--primary-color);
 }
 
-/* Footer */
-body.dark-mode .footer {
-    background-color: var(--primary-color);
-    color: var(--white);
-}
-
-body.dark-mode .footer a {
-    color: var(--white);
-}
-
-body.dark-mode .footer a:hover {
-    color: var(--secondary-color);
-}
-
-/* Data Structure Explorer */
-body.dark-mode .data-structure-selection select {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .tree-container {
-    background-color: var(--white);
-}
-
-body.dark-mode .tabs-container {
-    background-color: var(--white);
-}
-
-body.dark-mode .tab-content pre {
-    background-color: var(--white);
-}
-
-body.dark-mode .tab-content p,
-body.dark-mode .tab-content ul {
-    color: var(--text-color);
-}
-
-/* Algorithm Visualizer */
-body.dark-mode .algorithm-visualizer h2,
-body.dark-mode .visualizer-top,
-body.dark-mode .visualizer-controls button,
-body.dark-mode .tab-content,
-body.dark-mode .tab-content pre {
-    background-color: var(--white);
-    color: var(--text-color);
-    border-color: #444;
-}
-
-body.dark-mode .tab-content pre {
-    background-color: #333;
-    color: #e0e0e0;
-}
-
-body.dark-mode .visualizer-controls button {
-    background-color: var(--primary-color);
-    color: var(--white);
-}
-
-body.dark-mode .visualizer-controls button:hover {
-    background-color: var(--secondary-color);
-}
-
-/* Educational Resources */
-body.dark-mode .educational-card {
-    background-color: #2c2c2c;
-    border: 1px solid #444;
-    color: var(--text-color);
-}
-
-body.dark-mode .educational-card .description {
-    color: var(--dark-gray);
-}
-
-body.dark-mode .educational-card:hover {
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .educational-card h4 {
-    color: var(--primary-color);
-}
-
-/* Interactive Code Editor */
-body.dark-mode .CodeMirror {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .editor-controls select,
-body.dark-mode #font-size-range {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .editor-buttons button {
-    background-color: var(--secondary-color);
-    color: var(--white);
-}
-
-body.dark-mode .editor-buttons button:hover {
-    background-color: var(--accent-color);
-}
-
-body.dark-mode .output-container pre {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-
-
-
-
-/* Dark Mode Adjustments */
-body.dark-mode .visualizer-container {
-    background-color: var(--white);
-}
-
-body.dark-mode .tab-content pre {
-    background-color: var(--white);
-}
-
-body.dark-mode .algorithm-selection select {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .visualizer-controls button {
-    background-color: var(--primary-color);
-    color: var(--white);
-}
-
-body.dark-mode .visualizer-controls button:hover {
-    background-color: var(--secondary-color);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .visualizer-top {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .visualizer-controls {
-        margin-top: 10px;
-    }
-}
-
-
-/* =========================================
-   Complexity Comparison Dashboard Styles
-   ========================================= */
-/*
-.dashboard-container {
-    display: flex;
-    margin-top: 20px;
-    background-color: var(--white);
-    border: 1px solid var(--muted-gray-green);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.algorithm-list {
-    width: 25%;
-    padding: 20px;
-    background-color: var(--light-mint-green);
-    border-right: 1px solid var(--muted-gray-green);
-}
-
-.algorithm-list h4 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-size: 20px;
-}
-
-.algorithm-list ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.algorithm-list li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.algorithm-list input[type="checkbox"] {
-    margin-right: 10px;
-    transform: scale(1.2);
-    cursor: pointer;
-}
-
-.algorithm-list label {
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.dashboard-right {
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.dashboard-charts {
-    width: 100%;
-    height: 400px;
-    margin-bottom: 20px;
-}
-
-.dashboard-charts canvas {
-    width: 100% !important;
-    height: 100% !important;
-    background-color: var(--background-color);
-    border: 1px solid var(--muted-gray-green);
-    border-radius: 5px;
-}
-
-.big-o-notation {
-    width: 100%;
-}
-
-.big-o-notation h4 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-size: 20px;
-}
-
-#big-o-container {
+/* Editor Top Controls */
+.editor-top {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.big-o-card {
-    background-color: var(--white);
+.editor-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.editor-controls label {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.editor-controls select,
+#font-size-range {
+    padding: 8px 12px;
+    font-size: 16px;
     border: 1px solid var(--muted-gray-green);
     border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
-    width: calc(48% - 10px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
-.big-o-card h5 {
-    margin-bottom: 10px;
-    color: var(--secondary-color);
+.editor-controls select:focus,
+#font-size-range:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(3, 218, 198, 0.5);
+    outline: none;
+}
+
+.editor-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.editor-buttons button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.editor-buttons button:hover {
+    background-color: var(--secondary-color);
+}
+
+.editor-buttons i {
     font-size: 18px;
 }
 
-.big-o-card p {
-    margin: 5px 0;
+/* Editor Container */
+.editor-container {
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+/* CodeMirror Styles */
+.CodeMirror {
+    height: 400px;
+    font-size: 14px; /* Default font size */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Output Container */
+.output-container {
+    background-color: var(--background-color);
+    border: 1px solid var(--muted-gray-green);
+    border-radius: 5px;
+    padding: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.output-container h4 {
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.output-container pre {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-@media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column;
-    }
-
-    .algorithm-list, .dashboard-right {
-        width: 100%;
-    }
-
-    #big-o-container {
-        flex-direction: column;
-    }
-
-    .big-o-card {
-        width: 100%;
-    }
-}
-*/
-
-/* ... (Existing styles above remain unchanged) */
 
 /* =========================================
    Complexity Comparison Dashboard Styles
-   ========================================= */
+========================================= */
 
 /* Dashboard Container */
 .dashboard-container {
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
-    background-color: var(--white);
+    background-color: var(--background-color);
     border: 1px solid var(--muted-gray-green);
     border-radius: 8px;
     overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Left Sidebar for Algorithm List */
@@ -959,6 +628,7 @@ body.dark-mode .visualizer-controls button:hover {
     padding: 20px;
     background-color: var(--light-mint-green);
     border-right: 1px solid var(--muted-gray-green);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .algorithm-list h4 {
@@ -1020,6 +690,7 @@ body.dark-mode .visualizer-controls button:hover {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    transition: padding 0.3s ease;
 }
 
 /* Graph Area */
@@ -1028,6 +699,7 @@ body.dark-mode .visualizer-controls button:hover {
     height: 400px;
     margin-bottom: 20px;
     position: relative;
+    transition: height 0.3s ease;
 }
 
 .dashboard-charts canvas {
@@ -1036,6 +708,7 @@ body.dark-mode .visualizer-controls button:hover {
     background-color: var(--background-color);
     border: 1px solid var(--muted-gray-green);
     border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Chart Controls */
@@ -1077,12 +750,13 @@ body.dark-mode .visualizer-controls button:hover {
 }
 
 .big-o-card {
-    background-color: var(--white);
+    background-color: var(--background-color);
     border: 1px solid var(--muted-gray-green);
     border-radius: 5px;
     padding: 15px;
     width: calc(50% - 10px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .big-o-card h5 {
@@ -1095,6 +769,7 @@ body.dark-mode .visualizer-controls button:hover {
     margin: 5px 0;
     font-size: 16px;
     line-height: 1.5;
+    color: var(--text-color);
 }
 
 /* Responsive Design */
@@ -1116,29 +791,16 @@ body.dark-mode .visualizer-controls button:hover {
     }
 }
 
-/* Dark Mode Adjustments */
-body.dark-mode .algorithm-list {
-    background-color: var(--white);
-}
-
-body.dark-mode .dashboard-charts canvas {
-    background-color: var(--white);
-}
-
-body.dark-mode .big-o-card {
-    background-color: var(--white);
-}
-
-
 /* =========================================
    Homepage Styles
-   ========================================= */
+========================================= */
 
 /* Hero Section */
 .hero {
     position: relative;
     height: 100vh;
     overflow: hidden;
+    transition: height 0.3s ease;
 }
 
 #heroVideo {
@@ -1148,6 +810,7 @@ body.dark-mode .big-o-card {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: object-fit 0.3s ease;
 }
 
 .hero-content {
@@ -1158,9 +821,10 @@ body.dark-mode .big-o-card {
     text-align: center;
     color: var(--white);
     padding: 0 20px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(30, 30, 30, 0.8); /* Adjusted for dark mode */
     backdrop-filter: blur(10px);
     border-radius: 15px;
+    transition: background 0.3s ease;
 }
 
 .hero-title {
@@ -1171,6 +835,7 @@ body.dark-mode .big-o-card {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientText 5s ease infinite;
+    transition: background 0.3s ease;
 }
 
 @keyframes gradientText {
@@ -1192,6 +857,7 @@ body.dark-mode .big-o-card {
 .hero p {
     font-size: 24px;
     margin-bottom: 30px;
+    color: var(--text-color);
 }
 
 .cta-button {
@@ -1236,6 +902,7 @@ body.dark-mode .big-o-card {
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite;
+    transition: background 0.3s ease;
 }
 
 @keyframes gradientAnimation {
@@ -1261,6 +928,7 @@ body.dark-mode .big-o-card {
 .features {
     padding: 80px 20px;
     background-color: var(--background-color);
+    transition: background-color 0.3s ease;
 }
 
 .section-title {
@@ -1278,7 +946,7 @@ body.dark-mode .big-o-card {
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(30, 30, 30, 0.8);
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 15px;
@@ -1286,13 +954,13 @@ body.dark-mode .big-o-card {
     flex: 1 1 calc(25% - 40px);
     max-width: calc(25% - 40px);
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border 0.3s;
     cursor: pointer;
 }
 
 .feature-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
 }
 
 .feature-icon {
@@ -1304,6 +972,7 @@ body.dark-mode .big-o-card {
 .feature-card h3 {
     font-size: 22px;
     margin-bottom: 15px;
+    color: var(--text-color);
 }
 
 .feature-card p {
@@ -1335,10 +1004,11 @@ body.dark-mode .big-o-card {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
+    transition: background-color 0.3s ease;
 }
 
 .modal-content {
-    background-color: var(--white);
+    background-color: var(--background-color);
     margin: auto;
     padding: 20px;
     border: 1px solid var(--muted-gray-green);
@@ -1346,16 +1016,18 @@ body.dark-mode .big-o-card {
     max-width: 600px;
     border-radius: 10px;
     position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .close-modal {
-    color: var(--dark-gray);
+    color: var(--text-color);
     position: absolute;
     top: 10px;
     right: 20px;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .close-modal:hover,
@@ -1368,6 +1040,7 @@ body.dark-mode .big-o-card {
     padding: 60px 20px;
     background-color: var(--background-color);
     text-align: center;
+    transition: background-color 0.3s ease;
 }
 
 .swiper-container {
@@ -1377,14 +1050,16 @@ body.dark-mode .big-o-card {
 }
 
 .swiper-slide {
-    background-color: var(--white);
+    background-color: var(--background-color);
     padding: 40px;
     border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .swiper-slide p {
     font-size: 18px;
     margin-bottom: 20px;
+    color: var(--text-color);
 }
 
 .swiper-slide h4 {
@@ -1396,6 +1071,7 @@ body.dark-mode .big-o-card {
 .latest-articles {
     padding: 60px 20px;
     background-color: var(--light-mint-green);
+    transition: background-color 0.3s ease;
 }
 
 .articles-container {
@@ -1406,26 +1082,34 @@ body.dark-mode .big-o-card {
 }
 
 .article-card {
-    background-color: var(--white);
+    background-color: var(--background-color);
     padding: 20px;
     border-radius: 10px;
     width: calc(33% - 40px);
     max-width: 300px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .article-card h3 {
     font-size: 18px;
     margin-bottom: 10px;
+    color: var(--text-color);
 }
 
 .article-card p {
     font-size: 14px;
     margin-bottom: 15px;
+    color: var(--text-color);
 }
 
 .article-card a {
     color: var(--secondary-color);
     font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.article-card a:hover {
+    color: var(--primary-color);
 }
 
 /* Call to Action Section */
@@ -1434,6 +1118,7 @@ body.dark-mode .big-o-card {
     background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
     color: var(--white);
     text-align: center;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .cta-section h2 {
@@ -1449,6 +1134,7 @@ body.dark-mode .big-o-card {
 .cta-section .cta-button {
     background-color: var(--accent-color);
     color: var(--white);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .cta-section .cta-button:hover {
@@ -1461,6 +1147,7 @@ body.dark-mode .big-o-card {
     background-color: var(--primary-color);
     color: var(--white);
     padding: 40px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .footer-container {
@@ -1485,6 +1172,7 @@ body.dark-mode .big-o-card {
 .footer-links a {
     color: var(--white);
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
@@ -1500,7 +1188,7 @@ body.dark-mode .big-o-card {
 .social-link {
     color: var(--white);
     font-size: 20px;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 .social-link:hover {
@@ -1511,6 +1199,7 @@ body.dark-mode .big-o-card {
     text-align: center;
     padding-top: 20px;
     border-top: 1px solid #444;
+    transition: border-color 0.3s ease;
 }
 
 /* Animations */
@@ -1559,6 +1248,15 @@ body.dark-mode .big-o-card {
     .article-card {
         width: 100%;
     }
+
+    .editor-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .editor-buttons {
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1583,179 +1281,102 @@ body.dark-mode .big-o-card {
     }
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    --background-color: #121212;
-    --text-color: #e0e0e0;
-    --white: #1e1e1e;
-    --primary-color: #bb86fc;
-    --secondary-color: #03dac6;
-    --accent-color: #3700b3;
-}
-
-.dark-mode .navbar {
-    background-color: var(--primary-color);
-}
-
-.dark-mode .side-nav {
-    background-color: var(--white);
-}
-
-.dark-mode .feature-card {
-    background: rgba(30, 30, 30, 0.8);
-}
-
-.dark-mode .footer {
-    background-color: var(--primary-color);
-}
-
-/* ... (Existing styles above remain unchanged) */
-
 /* =========================================
-   Interactive Code Editor Specific Styles
-   ========================================= */
+   Modal Styles
+========================================= */
 
-/* Code Editor Section */
-.code-editor-section h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--primary-color);
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    transition: background-color 0.3s ease;
 }
 
-/* Editor Top Controls */
-.editor-top {
+/* Modal Content/Box */
+.modal-content {
+    background-color: var(--background-color); /* Adapts to dark/light mode */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid var(--muted-gray-green);
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px; /* Maximum width */
+    border-radius: 10px;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Close Button */
+.close-modal {
+    color: var(--text-color);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: var(--secondary-color);
+}
+
+/* Modal Show Class */
+.modal.active {
+    display: block;
+}
+
+/* Modal Header */
+.modal-header {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.editor-controls {
-    display: flex;
-    align-items: center;
     margin-bottom: 10px;
-    gap: 10px;
 }
 
-.editor-controls label {
-    font-weight: 600;
+.modal-header h2 {
+    margin: 0;
     color: var(--primary-color);
 }
 
-.editor-controls select,
-#font-size-range {
-    padding: 8px 12px;
+/* Modal Body */
+.modal-body {
+    color: var(--text-color);
     font-size: 16px;
-    border: 1px solid var(--muted-gray-green);
-    border-radius: 5px;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    line-height: 1.6;
 }
 
-.editor-controls select:focus,
-#font-size-range:focus {
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
-    outline: none;
+/* Modal Footer */
+.modal-footer {
+    margin-top: 20px;
+    text-align: right;
 }
 
-.editor-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.editor-buttons button {
-    background-color: var(--primary-color);
+.modal-footer button {
+    background-color: var(--secondary-color);
     color: var(--white);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.editor-buttons button:hover {
-    background-color: var(--secondary-color);
+.modal-footer button:hover {
+    background-color: var(--accent-color);
 }
 
-.editor-buttons i {
-    font-size: 18px;
-}
-
-/* Editor Container */
-.editor-container {
-    border: 1px solid var(--muted-gray-green);
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.CodeMirror {
-    height: 400px;
-    font-size: 14px; /* Default font size */
-}
-
-/* Output Container */
-.output-container {
-    background-color: var(--background-color);
-    border: 1px solid var(--muted-gray-green);
-    border-radius: 5px;
-    padding: 20px;
-}
-
-.output-container h4 {
-    margin-bottom: 10px;
-    color: var(--secondary-color);
-}
-
-.output-container pre {
-    background-color: var(--white);
-    padding: 15px;
-    border-radius: 5px;
-    overflow-x: auto;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-/* Dark Mode Adjustments */
-body.dark-mode .CodeMirror {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .editor-controls select,
-body.dark-mode #font-size-range {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-body.dark-mode .output-container pre {
-    background-color: var(--white);
-    color: var(--text-color);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .editor-top {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .editor-buttons {
-        margin-top: 10px;
-    }
-}
-/* Grid Container */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two cards per row */
-    gap: 15px; /* Adjust gap between cards */
-    justify-items: center; /* Center align the cards within the grid */
-}
+/* =========================================
+   Grid Container Styles
+========================================= */
 
 /* Grid Container */
 .grid-container {
@@ -1763,21 +1384,14 @@ body.dark-mode .output-container pre {
     grid-template-columns: repeat(3, 1fr); /* Three cards per row */
     gap: 20px; /* Spacing between cards */
     justify-items: center; /* Center align the cards within the grid */
-}
-
-/* Grid Container */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three cards per row */
-    gap: 20px; /* Spacing between cards */
-    justify-items: center; /* Center align the cards within the grid */
+    transition: grid-template-columns 0.3s ease, gap 0.3s ease;
 }
 
 /* Educational Cards */
 .educational-card {
     position: relative;
-    background-color: var(--white);
-    border: 1px solid #ddd;
+    background-color: var(--background-color);
+    border: 1px solid var(--muted-gray-green);
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -1792,11 +1406,10 @@ body.dark-mode .output-container pre {
 }
 
 .educational-card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
     transform: scale(1.05); /* Slight zoom on hover */
 }
 
-/* Card Title */
 .educational-card h4 {
     margin: 0;
     font-size: 1.2em; /* Larger font size */
@@ -1805,7 +1418,6 @@ body.dark-mode .output-container pre {
     padding: 5px 0; /* Add padding for spacing */
 }
 
-/* Description Area (hidden by default) */
 .educational-card .description {
     max-height: 0;
     overflow: hidden;
@@ -1821,62 +1433,218 @@ body.dark-mode .output-container pre {
     padding: 10px 0;
 }
 
-/* Responsive Design */
-@media (max-width: 992px) {
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr); /* Two cards per row on medium screens */
-    }
-    .educational-card {
-        width: 300px; /* Larger size for medium screens */
-        height: 300px;
-    }
+/* Light Mode Overrides */
+body.light-mode {
+    --background-color: #F5F5F5;
+    --text-color: #333333;
+    --white: #FFFFFF;
+    --primary-color: #6B5B95; /* Indigo */
+    --secondary-color: #FF6F61; /* Coral */
+    --accent-color: #A6D3A0; /* Soft Green */
+    --dark-gray: #656565;
+    --muted-gray-green: #808782;
+    --soft-green: #A6D3A0;
+    --light-mint-green: #D1FFD7;
+    --light-green: #B3FFB3;
+    --tree-color-left: #FF6F61; /* Coral */
+    --tree-color-right: #6B5B95; /* Indigo */
+    --hover-color-left: #FF8C69; /* Darker Coral */
+    --hover-color-right: #8365C9; /* Darker Indigo */
 }
 
-@media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: repeat(1, 1fr); /* One card per row on small screens */
-    }
-    .educational-card {
-        width: 100%; /* Full-width cards for small screens */
-        height: auto;
-        aspect-ratio: 1 / 1;
-    }
+/* Light Mode Specific Styles */
+body.light-mode .data-structure-selection select {
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000; /* Ensure the modal is on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
+body.light-mode .tree-container {
+    background-color: var(--background-color);
 }
 
-.modal.active {
-    display: flex;
+body.light-mode .tabs-container {
+    background-color: var(--white);
 }
 
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 600px;
-    text-align: center;
-    position: relative;
+body.light-mode .node-tooltip {
+    background-color: var(--white);
+    color: var(--text-color);
 }
 
-.modal-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
+body.light-mode .feature-card {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+}
+
+body.light-mode .feature-card p {
+    color: var(--dark-gray);
+}
+
+body.light-mode .modal-content {
+    background-color: var(--white);
+    color: var(--text-color);
+    border: 1px solid var(--muted-gray-green);
+}
+
+body.light-mode .modal-content pre {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+body.light-mode .close-modal {
+    color: var(--dark-gray);
+}
+
+body.light-mode .close-modal:hover,
+body.light-mode .close-modal:focus {
+    color: var(--secondary-color);
+}
+
+body.light-mode .swiper-slide {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+body.light-mode .swiper-slide p {
+    color: var(--text-color);
+}
+
+body.light-mode .swiper-slide h4 {
+    color: var(--dark-gray);
+}
+
+body.light-mode .latest-articles {
+    background-color: var(--light-mint-green);
+}
+
+body.light-mode .article-card {
+    background-color: var(--white);
+    border: 1px solid var(--muted-gray-green);
+    color: var(--text-color);
+}
+
+body.light-mode .article-card a {
+    color: var(--secondary-color);
+}
+
+body.light-mode .article-card a:hover {
+    color: var(--accent-color);
+}
+
+body.light-mode .cta-section {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: var(--white);
+}
+
+body.light-mode .cta-section .cta-button {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+body.light-mode .cta-section .cta-button:hover {
+    background-color: var(--white);
+    color: var(--primary-color);
+}
+
+body.light-mode .footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+body.light-mode .footer a {
+    color: var(--white);
+}
+
+body.light-mode .footer a:hover {
+    color: var(--accent-color);
+}
+
+body.light-mode .educational-card {
+    background-color: var(--white);
+    border: 1px solid #ddd;
+    color: var(--text-color);
+}
+
+body.light-mode .educational-card .description {
+    color: var(--dark-gray);
+}
+
+body.light-mode .educational-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode .educational-card h4 {
+    color: var(--primary-color);
+}
+
+body.light-mode .CodeMirror {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+body.light-mode .editor-controls select,
+body.light-mode #font-size-range {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+body.light-mode .editor-buttons button {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+body.light-mode .editor-buttons button:hover {
+    background-color: var(--accent-color);
+}
+
+body.light-mode .output-container pre {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+/* Additional Transitions for Smooth Mode Switching */
+body, .navbar, .side-nav, .feature-card, .modal-content, .footer, .cta-section, .testimonials, .latest-articles, .dashboard-container, .code-editor-section, .educational-card, .algorithm-visualizer, .tab-content, .output-container, .editor-controls select, .visualizer-controls button, .editor-buttons button, .output-container pre, .article-card, button, .button, input, select, textarea, table, th, td, ul, ol, li, form {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+a, button {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+
+/* =========================================
+   Light Mode Overrides for Modal
+========================================= */
+
+body.light-mode .modal-content {
+    background-color: var(--white);
+    border-color: var(--muted-gray-green);
+}
+
+body.light-mode .close-modal {
+    color: var(--text-color);
+}
+
+body.light-mode .close-modal:hover,
+body.light-mode .close-modal:focus {
+    color: var(--secondary-color);
+}
+
+body.light-mode .modal-header h2 {
+    color: var(--primary-color);
+}
+
+body.light-mode .modal-body {
+    color: var(--text-color);
+}
+
+body.light-mode .modal-footer button {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+body.light-mode .modal-footer button:hover {
+    background-color: var(--accent-color);
 }
 
