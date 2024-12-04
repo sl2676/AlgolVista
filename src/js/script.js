@@ -39,24 +39,51 @@
 })();
 
 /* =========================================
-   Dark Mode Toggle Functionality
+   Dark Mode Toggle Functionality with Persistence
    ========================================= */
 (function() {
     const darkModeSwitch = document.getElementById('darkModeSwitch');
 
+    // Function to enable dark mode
+    const enableDarkMode = () => {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+    };
+
+    // Function to disable dark mode
+    const disableDarkMode = () => {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+    };
+
+    // Check localStorage on page load
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'enabled') {
+        enableDarkMode();
+        if (darkModeSwitch) {
+            darkModeSwitch.checked = true;
+        }
+    }
+
+    // Event Listener for toggle switch
     if (darkModeSwitch) {
         darkModeSwitch.addEventListener('change', () => {
-            document.body.classList.toggle('dark-mode');
+            if (darkModeSwitch.checked) {
+                enableDarkMode();
+            } else {
+                disableDarkMode();
+            }
         });
     } else {
         console.warn('Dark mode switch element not found on this page.');
     }
 })();
+
+
 /* =========================================
-   5. Interactive Code Editor
+   Interactive Code Editor
    ========================================= */
-   /*
-(function() {
+document.addEventListener('DOMContentLoaded', () => {
     // Supported Languages and their Judge0 IDs and CodeMirror Modes
     const languages = {
         javascript: { id: 63, mode: 'javascript', name: 'JavaScript' },
@@ -72,14 +99,17 @@
     const editorElement = document.getElementById('code');
     const outputElement = document.getElementById('output');
     const runCodeBtn = document.getElementById('run-code');
+    const resetCodeBtn = document.getElementById('reset-code');
     const languageSelect = document.getElementById('language-select');
+    const themeSelect = document.getElementById('theme-select');
+    const fontSizeRange = document.getElementById('font-size-range');
 
     if (editorElement && outputElement && runCodeBtn && languageSelect) {
         // Initialize CodeMirror Editor
         let editor = CodeMirror.fromTextArea(editorElement, {
             lineNumbers: true,
-            mode: languages.javascript.mode,
-            theme: 'material',
+            mode: languages[languageSelect.value].mode,
+            theme: themeSelect.value,
             autoCloseBrackets: true,
             matchBrackets: true,
             tabSize: 4,
@@ -112,13 +142,41 @@
         };
 
         // Set initial placeholder code
-        editor.setValue(getPlaceholderCode('javascript'));
+        editor.setValue(getPlaceholderCode(languageSelect.value));
 
-        // Update Editor Mode and Placeholder Code on Language Change
-        languageSelect.addEventListener('change', (e) => {
-            const selectedLang = e.target.value;
+        // Function to update editor mode
+        const updateEditorMode = () => {
+            const selectedLang = languageSelect.value;
             editor.setOption('mode', languages[selectedLang].mode);
             editor.setValue(getPlaceholderCode(selectedLang));
+        };
+
+        // Function to update editor theme
+        const updateEditorTheme = () => {
+            const theme = themeSelect.value;
+            editor.setOption('theme', theme);
+        };
+
+        // Function to update font size
+        const updateFontSize = () => {
+            const fontSize = fontSizeRange.value + 'px';
+            editor.getWrapperElement().style.fontSize = fontSize;
+            editor.refresh();
+        };
+
+        // Update Editor Mode and Placeholder Code on Language Change
+        languageSelect.addEventListener('change', updateEditorMode);
+
+        // Update Editor Theme on Theme Change
+        themeSelect.addEventListener('change', updateEditorTheme);
+
+        // Update Font Size on Range Change
+        fontSizeRange.addEventListener('input', updateFontSize);
+
+        // Reset Code Button Click
+        resetCodeBtn.addEventListener('click', () => {
+            const language = languageSelect.value;
+            editor.setValue(getPlaceholderCode(language));
         });
 
         // Run Code Functionality
@@ -159,172 +217,14 @@
                 outputElement.textContent = 'An error occurred while running the code.';
             });
         });
+
+        // Initialize Font Size
+        updateFontSize();
     } else {
         console.warn('Code Editor elements not found on this page.');
     }
-})();
-*/
-
-/* =========================================
-   Interactive Code Editor
-   ========================================= */
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize CodeMirror Editor
-    const codeTextarea = document.getElementById('code');
-    const languageSelect = document.getElementById('language-select');
-    const themeSelect = document.getElementById('theme-select');
-    const fontSizeRange = document.getElementById('font-size-range');
-    const runCodeBtn = document.getElementById('run-code');
-    const resetCodeBtn = document.getElementById('reset-code');
-    const outputPre = document.getElementById('output');
-
-    const defaultCode = {
-        javascript: `// Write your JavaScript code here
-function helloWorld() {
-    console.log("Hello, World!");
-}
-helloWorld();`,
-        python: `# Write your Python code here
-def hello_world():
-    print("Hello, World!")
-
-hello_world()`,
-        java: `// Write your Java code here
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}`,
-        cpp: `// Write your C++ code here
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
-}`,
-        c: `// Write your C code here
-#include <stdio.h>
-
-int main() {
-    printf("Hello, World!\\n");
-    return 0;
-}`,
-        csharp: `// Write your C# code here
-using System;
-
-class Program {
-    static void Main() {
-        Console.WriteLine("Hello, World!");
-    }
-}`,
-        typescript: `// Write your TypeScript code here
-function helloWorld(): void {
-    console.log("Hello, World!");
-}
-helloWorld();`,
-        go: `// Write your Go code here
-package main
-
-import "fmt"
-
-func main() {
-    fmt.Println("Hello, World!")
-}`
-    };
-
-    let editor = CodeMirror.fromTextArea(codeTextarea, {
-        mode: 'javascript',
-        theme: 'dracula',
-        lineNumbers: true,
-        autoCloseBrackets: true,
-        matchBrackets: true,
-    });
-
-    // Function to update editor mode
-    const updateEditorMode = () => {
-        const language = languageSelect.value;
-        const modeMap = {
-            javascript: 'javascript',
-            python: 'python',
-            java: 'text/x-java',
-            cpp: 'text/x-c++src',
-            c: 'text/x-csrc',
-            csharp: 'text/x-csharp',
-            typescript: 'application/typescript',
-            go: 'go'
-        };
-        editor.setOption('mode', modeMap[language]);
-        editor.setValue(defaultCode[language]);
-    };
-
-    // Function to update editor theme
-    const updateEditorTheme = () => {
-        const theme = themeSelect.value;
-        editor.setOption('theme', theme);
-    };
-
-    // Function to update font size
-    const updateFontSize = () => {
-        const fontSize = fontSizeRange.value + 'px';
-        editor.getWrapperElement().style.fontSize = fontSize;
-        editor.refresh();
-    };
-
-    // Event Listeners
-    languageSelect.addEventListener('change', updateEditorMode);
-    themeSelect.addEventListener('change', updateEditorTheme);
-    fontSizeRange.addEventListener('input', updateFontSize);
-
-    // Run Code Button Click
-    runCodeBtn.addEventListener('click', () => {
-        const code = editor.getValue();
-        const language = languageSelect.value;
-        outputPre.textContent = 'Running code...';
-
-        // API Endpoint for code execution
-        const apiUrl = 'https://api.jdoodle.com/v1/execute';
-
-        // JDoodle API Credentials (Replace with your own Client ID and Secret)
-        const clientId = 'YOUR_CLIENT_ID';
-        const clientSecret = 'YOUR_CLIENT_SECRET';
-
-        const requestData = {
-            script: code,
-            language: language,
-            versionIndex: '0',
-            clientId: clientId,
-            clientSecret: clientSecret
-        };
-
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    outputPre.textContent = data.error;
-                } else {
-                    outputPre.textContent = data.output;
-                }
-            })
-            .catch(error => {
-                outputPre.textContent = 'Error executing code.';
-                console.error(error);
-            });
-    });
-
-    // Reset Code Button Click
-    resetCodeBtn.addEventListener('click', () => {
-        const language = languageSelect.value;
-        editor.setValue(defaultCode[language]);
-    });
-
-    // Initialize Font Size
-    updateFontSize();
 });
+
 
 
 /* =========================================
@@ -678,35 +578,13 @@ func main() {
 			 }
         });
 
-        // Tabs Functionality
-	/*
-        tabLinks.forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelector('.tab-link.active').classList.remove('active');
-                tab.classList.add('active');
-
-                document.querySelector('.tab-content.active').classList.remove('active');
-                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
-            });
-        });
-	*/
 
 		tabLinks.forEach(tab => {
             tab.addEventListener('click', () => {
                 activateTab(tab.dataset.tab);
             });
         });
-/*
-		const activateTab = (tabName) => {
-            // Remove 'active' class from all tabs and contents
-            tabLinks.forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
 
-            // Add 'active' class to the selected tab and content
-            document.querySelector(`.tab-link[data-tab="${tabName}"]`).classList.add('active');
-            document.getElementById(`${tabName}-tab`).classList.add('active');
-        };
-*/
 
 		const activateTab = (tabName) => {
             // Remove 'active' class from all tabs and contents
@@ -1004,244 +882,6 @@ func main() {
 })();
 
 
-
-/* =========================================
-   3. Complexity Comparison Dashboard
-   ========================================= */
-   /*
-(function() {
-    const complexityData = {
-        "Bubble Sort": {
-            time: "O(n²)",
-            space: "O(1)",
-            timeFunction: (n) => n ** 2,
-            spaceFunction: () => 1
-        },
-        "Quick Sort": {
-            time: "O(n log n)",
-            space: "O(log n)",
-            timeFunction: (n) => n * Math.log2(n),
-            spaceFunction: (n) => Math.log2(n)
-        },
-        "Merge Sort": {
-            time: "O(n log n)",
-            space: "O(n)",
-            timeFunction: (n) => n * Math.log2(n),
-            spaceFunction: (n) => n
-        },
-        // Add more algorithms as needed
-        "Insertion Sort": {
-            time: "O(n²)",
-            space: "O(1)",
-            timeFunction: (n) => n ** 2,
-            spaceFunction: () => 1
-        },
-        "Selection Sort": {
-            time: "O(n²)",
-            space: "O(1)",
-            timeFunction: (n) => n ** 2,
-            spaceFunction: () => 1
-        },
-        "Heap Sort": {
-            time: "O(n log n)",
-            space: "O(1)",
-            timeFunction: (n) => n * Math.log2(n),
-            spaceFunction: () => 1
-        },
-        "Counting Sort": {
-            time: "O(n + k)",
-            space: "O(k)",
-            timeFunction: (n, k) => n + k,
-            spaceFunction: (k) => k
-        },
-        "Radix Sort": {
-            time: "O(nk)",
-            space: "O(n + k)",
-            timeFunction: (n, k) => n * k,
-            spaceFunction: (n, k) => n + k
-        },
-        "Shell Sort": {
-            time: "O(n (log n)²)",
-            space: "O(1)",
-            timeFunction: (n) => n * (Math.log2(n)) ** 2,
-            spaceFunction: () => 1
-        },
-        "Cocktail Shaker Sort": {
-            time: "O(n²)",
-            space: "O(1)",
-            timeFunction: (n) => n ** 2,
-            spaceFunction: () => 1
-        }
-    };
-
-    // Generate Algorithm List in Sidebar
-    const algorithmList = document.getElementById('algorithm-checkboxes');
-    const selectedAlgorithms = [];
-
-    if (algorithmList) {
-        for (let algo in complexityData) {
-            const li = document.createElement('li');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.value = algo;
-            checkbox.id = `checkbox-${algo.replace(/\s+/g, '-')}`;
-            const label = document.createElement('label');
-            label.htmlFor = checkbox.id;
-            label.textContent = algo;
-            li.appendChild(checkbox);
-            li.appendChild(label);
-            algorithmList.appendChild(li);
-
-            // Event Listener for Checkbox
-            checkbox.addEventListener('change', () => {
-                if (checkbox.checked) {
-                    selectedAlgorithms.push(algo);
-                } else {
-                    const index = selectedAlgorithms.indexOf(algo);
-                    if (index > -1) {
-                        selectedAlgorithms.splice(index, 1);
-                    }
-                }
-                updateChart();
-                updateBigONotation();
-            });
-        }
-    } else {
-        console.warn('Algorithm list element not found.');
-    }
-
-    // Initialize Chart.js Chart
-    let complexityChart;
-
-    const initializeChart = () => {
-        const ctx = document.getElementById('complexity-chart');
-        if (ctx) {
-            complexityChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: [], // Input sizes
-                    datasets: []
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Input Size (n)'
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Operations Count'
-                            },
-                            type: 'logarithmic',
-                            min: 1,
-                            ticks: {
-                                callback: function(value, index, values) {
-                                    return Number(value.toString());
-                                }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: (context) => {
-                                    return `${context.dataset.label}: ${Math.round(context.parsed.y)}`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        } else {
-            console.warn('Complexity chart canvas not found.');
-        }
-    };
-
-    // Function to Update Chart
-    const updateChart = () => {
-        if (!complexityChart) return;
-
-        const nValues = [];
-        for (let i = 10; i <= 1000; i += 10) {
-            nValues.push(i);
-        }
-
-        complexityChart.data.labels = nValues;
-        complexityChart.data.datasets = [];
-
-        selectedAlgorithms.forEach(algo => {
-            const algoData = complexityData[algo];
-            const dataPoints = nValues.map(n => {
-                if (algo === 'Counting Sort' || algo === 'Radix Sort') {
-                    // Assume k = n for simplicity
-                    return algoData.timeFunction(n, n);
-                } else {
-                    return algoData.timeFunction(n);
-                }
-            });
-
-            complexityChart.data.datasets.push({
-                label: `${algo}`,
-                data: dataPoints,
-                borderColor: getRandomColor(),
-                fill: false
-            });
-        });
-
-        complexityChart.update();
-    };
-
-    // Function to Update Big O Notation Display
-    const updateBigONotation = () => {
-        const bigOContainer = document.getElementById('big-o-container');
-        if (!bigOContainer) {
-            console.warn('Big O container not found.');
-            return;
-        }
-        bigOContainer.innerHTML = '';
-
-        selectedAlgorithms.forEach(algo => {
-            const algoData = complexityData[algo];
-            const card = document.createElement('div');
-            card.classList.add('big-o-card');
-            const title = document.createElement('h5');
-            title.textContent = algo;
-            const timeComplexity = document.createElement('p');
-            timeComplexity.innerHTML = `<strong>Time Complexity:</strong> ${algoData.time}`;
-            const spaceComplexity = document.createElement('p');
-            spaceComplexity.innerHTML = `<strong>Space Complexity:</strong> ${algoData.space}`;
-            card.appendChild(title);
-            card.appendChild(timeComplexity);
-            card.appendChild(spaceComplexity);
-            bigOContainer.appendChild(card);
-        });
-    };
-
-    // Utility Function to Get Random Color
-    const getRandomColor = () => {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    };
-
-    // Initialize Chart on Page Load
-    document.addEventListener('DOMContentLoaded', () => {
-        if (document.getElementById('complexity-chart')) {
-            initializeChart();
-        }
-    });
-})();
-*/
-
-/* ... (Existing scripts above remain unchanged) */
-
 /* =========================================
    3. Complexity Comparison Dashboard
    ========================================= */
@@ -1508,539 +1148,6 @@ func main() {
         }
     });
 })();
-
-
-/* =========================================
-   2. Algorithm Visualizer
-   ========================================= */
-   /*
-(function () {
-    // Supported Sorting Algorithms
-    const sortingAlgorithms = [
-        'Bubble Sort',
-        'Quick Sort',
-        'Merge Sort',
-        'Insertion Sort',
-        'Selection Sort',
-        'Heap Sort',
-        'Counting Sort',
-        'Radix Sort',
-        'Shell Sort',
-        'Cocktail Shaker Sort',
-    ];
-
-    // Initialize Array and Visualization Elements
-    const sortContainer = document.getElementById('visualizer-container'); // Matches HTML
-    const startSortBtn = document.getElementById('start-visualizer'); // Matches HTML
-    const resetSortBtn = document.getElementById('reset-visualizer'); // Matches HTML
-    const algorithmSelect = document.getElementById('algorithm-select'); // Matches HTML
-
-    if (sortContainer && startSortBtn && resetSortBtn && algorithmSelect) {
-        // Populate Algorithm Dropdown
-        sortingAlgorithms.forEach((algo) => {
-            const option = document.createElement('option');
-            option.value = algo;
-            option.textContent = algo;
-            algorithmSelect.appendChild(option);
-        });
-
-        let sortArray = [];
-
-        // Initialize the array with random values
-        const initializeSortArray = (size = 50) => {
-            sortArray = Array.from({ length: size }, () => Math.floor(Math.random() * 100) + 10);
-            renderSortArray();
-        };
-
-        // Render the array as bars
-        const renderSortArray = () => {
-            sortContainer.innerHTML = '';
-            const containerWidth = sortContainer.clientWidth;
-            const barWidth = Math.floor(containerWidth / sortArray.length) - 2;
-
-            sortArray.forEach((value) => {
-                const bar = document.createElement('div');
-                bar.classList.add('bar');
-                bar.style.height = `${value * 3}px`;
-                bar.style.width = `${barWidth}px`;
-                bar.style.margin = '1px';
-                bar.style.backgroundColor = '#6B5B95'; // Indigo
-                sortContainer.appendChild(bar);
-            });
-        };
-
-        // Utility function to pause execution
-        const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-        // Sorting Algorithm Implementations
-
-        // 1. Bubble Sort
-        const bubbleSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            for (let i = 0; i < sortArray.length; i++) {
-                for (let j = 0; j < sortArray.length - i - 1; j++) {
-                    // Highlight bars being compared
-                    bars[j].style.backgroundColor = '#FF6F61'; // Coral
-                    bars[j + 1].style.backgroundColor = '#FF6F61'; // Coral
-
-                    await sleep(50);
-
-                    if (sortArray[j] > sortArray[j + 1]) {
-                        // Swap in array
-                        [sortArray[j], sortArray[j + 1]] = [sortArray[j + 1], sortArray[j]];
-                        // Swap in DOM
-                        bars[j].style.height = `${sortArray[j] * 3}px`;
-                        bars[j + 1].style.height = `${sortArray[j + 1] * 3}px`;
-                    }
-
-                    // Reset color
-                    bars[j].style.backgroundColor = '#6B5B95'; // Indigo
-                    bars[j + 1].style.backgroundColor = '#6B5B95'; // Indigo
-                }
-                // Mark the last element as sorted
-                bars[sortArray.length - i - 1].style.backgroundColor = '#A6D3A0'; // Soft Green
-            }
-        };
-
-        // 2. Quick Sort
-        const quickSort = async (start = 0, end = sortArray.length - 1) => {
-            if (start < end) {
-                const pivotIndex = await partition(start, end);
-                await quickSort(start, pivotIndex - 1);
-                await quickSort(pivotIndex + 1, end);
-            }
-        };
-
-        const partition = async (start, end) => {
-            const bars = document.querySelectorAll('.bar');
-            let pivotValue = sortArray[end];
-            bars[end].style.backgroundColor = '#FFA500'; // Orange for pivot
-            let pivotIndex = start;
-            for (let i = start; i < end; i++) {
-                bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(50);
-                if (sortArray[i] < pivotValue) {
-                    // Swap elements
-                    [sortArray[i], sortArray[pivotIndex]] = [sortArray[pivotIndex], sortArray[i]];
-                    // Swap in DOM
-                    bars[i].style.height = `${sortArray[i] * 3}px`;
-                    bars[pivotIndex].style.height = `${sortArray[pivotIndex] * 3}px`;
-                    pivotIndex++;
-                }
-                bars[i].style.backgroundColor = '#6B5B95'; // Reset color
-            }
-            // Swap pivot with element at pivotIndex
-            [sortArray[pivotIndex], sortArray[end]] = [sortArray[end], sortArray[pivotIndex]];
-            bars[pivotIndex].style.height = `${sortArray[pivotIndex] * 3}px`;
-            bars[end].style.height = `${sortArray[end] * 3}px`;
-
-            bars[end].style.backgroundColor = '#6B5B95'; // Reset color
-            bars[pivotIndex].style.backgroundColor = '#A6D3A0'; // Mark as sorted
-
-            return pivotIndex;
-        };
-
-        // 3. Merge Sort
-        const mergeSort = async (left = 0, right = sortArray.length - 1) => {
-            if (left >= right) {
-                return;
-            }
-            const mid = Math.floor((left + right) / 2);
-            await mergeSort(left, mid);
-            await mergeSort(mid + 1, right);
-            await merge(left, mid, right);
-        };
-
-        const merge = async (left, mid, right) => {
-            const bars = document.querySelectorAll('.bar');
-
-            const n1 = mid - left + 1;
-            const n2 = right - mid;
-
-            const leftArray = [];
-            const rightArray = [];
-
-            for (let i = 0; i < n1; i++) {
-                leftArray[i] = sortArray[left + i];
-            }
-            for (let j = 0; j < n2; j++) {
-                rightArray[j] = sortArray[mid + 1 + j];
-            }
-
-            let i = 0;
-            let j = 0;
-            let k = left;
-
-            while (i < n1 && j < n2) {
-                bars[k].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(50);
-
-                if (leftArray[i] <= rightArray[j]) {
-                    sortArray[k] = leftArray[i];
-                    bars[k].style.height = `${sortArray[k] * 3}px`;
-                    i++;
-                } else {
-                    sortArray[k] = rightArray[j];
-                    bars[k].style.height = `${sortArray[k] * 3}px`;
-                    j++;
-                }
-                bars[k].style.backgroundColor = '#6B5B95'; // Indigo
-                k++;
-            }
-
-            while (i < n1) {
-                bars[k].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(50);
-                sortArray[k] = leftArray[i];
-                bars[k].style.height = `${sortArray[k] * 3}px`;
-                bars[k].style.backgroundColor = '#6B5B95'; // Indigo
-                i++;
-                k++;
-            }
-
-            while (j < n2) {
-                bars[k].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(50);
-                sortArray[k] = rightArray[j];
-                bars[k].style.height = `${sortArray[k] * 3}px`;
-                bars[k].style.backgroundColor = '#6B5B95'; // Indigo
-                j++;
-                k++;
-            }
-        };
-
-        // 4. Insertion Sort
-        const insertionSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            for (let i = 1; i < sortArray.length; i++) {
-                let key = sortArray[i];
-                let j = i - 1;
-                bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(50);
-                while (j >= 0 && sortArray[j] > key) {
-                    sortArray[j + 1] = sortArray[j];
-                    bars[j + 1].style.height = `${sortArray[j + 1] * 3}px`;
-                    bars[j].style.backgroundColor = '#FF6F61'; // Coral
-                    await sleep(50);
-                    bars[j].style.backgroundColor = '#6B5B95'; // Indigo
-                    j--;
-                }
-                sortArray[j + 1] = key;
-                bars[j + 1].style.height = `${sortArray[j + 1] * 3}px`;
-                bars[i].style.backgroundColor = '#6B5B95'; // Reset color
-            }
-            // Mark all as sorted
-            for (let i = 0; i < bars.length; i++) {
-                bars[i].style.backgroundColor = '#A6D3A0'; // Soft Green
-                await sleep(20);
-            }
-        };
-
-        // 5. Selection Sort
-        const selectionSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            for (let i = 0; i < sortArray.length; i++) {
-                let minIndex = i;
-                bars[minIndex].style.backgroundColor = '#FF6F61'; // Coral
-                for (let j = i + 1; j < sortArray.length; j++) {
-                    bars[j].style.backgroundColor = '#FF6F61'; // Coral
-                    await sleep(50);
-                    if (sortArray[j] < sortArray[minIndex]) {
-                        bars[minIndex].style.backgroundColor = '#6B5B95'; // Reset previous min
-                        minIndex = j;
-                        bars[minIndex].style.backgroundColor = '#FF6F61'; // New min
-                    } else {
-                        bars[j].style.backgroundColor = '#6B5B95'; // Reset color
-                    }
-                }
-                if (minIndex !== i) {
-                    [sortArray[i], sortArray[minIndex]] = [sortArray[minIndex], sortArray[i]];
-                    bars[i].style.height = `${sortArray[i] * 3}px`;
-                    bars[minIndex].style.height = `${sortArray[minIndex] * 3}px`;
-                }
-                bars[minIndex].style.backgroundColor = '#6B5B95'; // Reset color
-                bars[i].style.backgroundColor = '#A6D3A0'; // Mark as sorted
-                await sleep(50);
-            }
-        };
-
-        // 6. Heap Sort
-        const heapSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            let n = sortArray.length;
-
-            // Build heap (rearrange array)
-            for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-                await heapify(n, i);
-            }
-
-            // One by one extract an element from heap
-            for (let i = n - 1; i > 0; i--) {
-                // Move current root to end
-                [sortArray[0], sortArray[i]] = [sortArray[i], sortArray[0]];
-                bars[0].style.height = `${sortArray[0] * 3}px`;
-                bars[i].style.height = `${sortArray[i] * 3}px`;
-                bars[i].style.backgroundColor = '#A6D3A0'; // Mark as sorted
-                await heapify(i, 0);
-            }
-            bars[0].style.backgroundColor = '#A6D3A0'; // Mark as sorted
-        };
-
-        const heapify = async (n, i) => {
-            const bars = document.querySelectorAll('.bar');
-            let largest = i;
-            let left = 2 * i + 1;
-            let right = 2 * i + 2;
-
-            if (left < n && sortArray[left] > sortArray[largest]) {
-                largest = left;
-            }
-
-            if (right < n && sortArray[right] > sortArray[largest]) {
-                largest = right;
-            }
-
-            if (largest !== i) {
-                bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                bars[largest].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(50);
-
-                [sortArray[i], sortArray[largest]] = [sortArray[largest], sortArray[i]];
-                bars[i].style.height = `${sortArray[i] * 3}px`;
-                bars[largest].style.height = `${sortArray[largest] * 3}px`;
-
-                bars[i].style.backgroundColor = '#6B5B95'; // Reset color
-                bars[largest].style.backgroundColor = '#6B5B95'; // Reset color
-
-                await heapify(n, largest);
-            }
-        };
-
-        // 7. Counting Sort
-        const countingSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            let max = Math.max(...sortArray);
-            let min = Math.min(...sortArray);
-            let range = max - min + 1;
-            let count = new Array(range).fill(0);
-            let output = new Array(sortArray.length).fill(0);
-
-            for (let i = 0; i < sortArray.length; i++) {
-                count[sortArray[i] - min]++;
-                bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(20);
-                bars[i].style.backgroundColor = '#6B5B95'; // Indigo
-            }
-
-            for (let i = 1; i < count.length; i++) {
-                count[i] += count[i - 1];
-            }
-
-            for (let i = sortArray.length - 1; i >= 0; i--) {
-                output[count[sortArray[i] - min] - 1] = sortArray[i];
-                count[sortArray[i] - min]--;
-            }
-
-            for (let i = 0; i < sortArray.length; i++) {
-                sortArray[i] = output[i];
-                bars[i].style.height = `${sortArray[i] * 3}px`;
-                bars[i].style.backgroundColor = '#A6D3A0'; // Soft Green
-                await sleep(20);
-            }
-        };
-
-        // 8. Radix Sort
-        const radixSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            let max = Math.max(...sortArray);
-            let exp = 1;
-            while (Math.floor(max / exp) > 0) {
-                await countingSortRadix(exp);
-                exp *= 10;
-            }
-            // Mark all as sorted
-            for (let i = 0; i < bars.length; i++) {
-                bars[i].style.backgroundColor = '#A6D3A0'; // Soft Green
-                await sleep(20);
-            }
-        };
-
-        const countingSortRadix = async (exp) => {
-            const bars = document.querySelectorAll('.bar');
-            let n = sortArray.length;
-            let output = new Array(n).fill(0);
-            let count = new Array(10).fill(0);
-
-            for (let i = 0; i < n; i++) {
-                let index = Math.floor(sortArray[i] / exp) % 10;
-                count[index]++;
-                bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                await sleep(10);
-                bars[i].style.backgroundColor = '#6B5B95'; // Indigo
-            }
-
-            for (let i = 1; i < 10; i++) {
-                count[i] += count[i - 1];
-            }
-
-            for (let i = n - 1; i >= 0; i--) {
-                let index = Math.floor(sortArray[i] / exp) % 10;
-                output[count[index] - 1] = sortArray[i];
-                count[index]--;
-            }
-
-            for (let i = 0; i < n; i++) {
-                sortArray[i] = output[i];
-                bars[i].style.height = `${sortArray[i] * 3}px`;
-                bars[i].style.backgroundColor = '#6B5B95'; // Indigo
-                await sleep(10);
-            }
-        };
-
-        // 9. Shell Sort
-        const shellSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            let n = sortArray.length;
-            for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
-                for (let i = gap; i < n; i++) {
-                    let temp = sortArray[i];
-                    let j;
-                    for (j = i; j >= gap && sortArray[j - gap] > temp; j -= gap) {
-                        sortArray[j] = sortArray[j - gap];
-                        bars[j].style.height = `${sortArray[j] * 3}px`;
-                        bars[j].style.backgroundColor = '#FF6F61'; // Coral
-                        await sleep(30);
-                        bars[j].style.backgroundColor = '#6B5B95'; // Indigo
-                    }
-                    sortArray[j] = temp;
-                    bars[j].style.height = `${sortArray[j] * 3}px`;
-                }
-            }
-            // Mark all as sorted
-            for (let i = 0; i < bars.length; i++) {
-                bars[i].style.backgroundColor = '#A6D3A0'; // Soft Green
-                await sleep(20);
-            }
-        };
-
-        // 10. Cocktail Shaker Sort
-        const cocktailShakerSort = async () => {
-            const bars = document.querySelectorAll('.bar');
-            let swapped = true;
-            let start = 0;
-            let end = sortArray.length - 1;
-
-            while (swapped) {
-                swapped = false;
-
-                // Forward pass
-                for (let i = start; i < end; i++) {
-                    bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                    bars[i + 1].style.backgroundColor = '#FF6F61'; // Coral
-
-                    await sleep(50);
-
-                    if (sortArray[i] > sortArray[i + 1]) {
-                        [sortArray[i], sortArray[i + 1]] = [sortArray[i + 1], sortArray[i]];
-                        bars[i].style.height = `${sortArray[i] * 3}px`;
-                        bars[i + 1].style.height = `${sortArray[i + 1] * 3}px`;
-                        swapped = true;
-                    }
-
-                    bars[i].style.backgroundColor = '#6B5B95'; // Indigo
-                    bars[i + 1].style.backgroundColor = '#6B5B95'; // Indigo
-                }
-
-                if (!swapped) break;
-
-                swapped = false;
-                end--;
-
-                // Backward pass
-                for (let i = end; i > start; i--) {
-                    bars[i].style.backgroundColor = '#FF6F61'; // Coral
-                    bars[i - 1].style.backgroundColor = '#FF6F61'; // Coral
-
-                    await sleep(50);
-
-                    if (sortArray[i] < sortArray[i - 1]) {
-                        [sortArray[i], sortArray[i - 1]] = [sortArray[i - 1], sortArray[i]];
-                        bars[i].style.height = `${sortArray[i] * 3}px`;
-                        bars[i - 1].style.height = `${sortArray[i - 1] * 3}px`;
-                        swapped = true;
-                    }
-
-                    bars[i].style.backgroundColor = '#6B5B95'; // Indigo
-                    bars[i - 1].style.backgroundColor = '#6B5B95'; // Indigo
-                }
-
-                start++;
-            }
-            // Mark all as sorted
-            for (let i = 0; i < bars.length; i++) {
-                bars[i].style.backgroundColor = '#A6D3A0'; // Soft Green
-                await sleep(20);
-            }
-        };
-
-        // Function to execute selected sorting algorithm
-        const executeSort = async (algorithm) => {
-            switch (algorithm) {
-                case 'Bubble Sort':
-                    await bubbleSort();
-                    break;
-                case 'Quick Sort':
-                    await quickSort();
-                    break;
-                case 'Merge Sort':
-                    await mergeSort();
-                    break;
-                case 'Insertion Sort':
-                    await insertionSort();
-                    break;
-                case 'Selection Sort':
-                    await selectionSort();
-                    break;
-                case 'Heap Sort':
-                    await heapSort();
-                    break;
-                case 'Counting Sort':
-                    await countingSort();
-                    break;
-                case 'Radix Sort':
-                    await radixSort();
-                    break;
-                case 'Shell Sort':
-                    await shellSort();
-                    break;
-                case 'Cocktail Shaker Sort':
-                    await cocktailShakerSort();
-                    break;
-                default:
-                    alert('Please select a valid sorting algorithm.');
-            }
-        };
-
-        // Event Listener for Start Sort Button
-        startSortBtn.addEventListener('click', () => {
-            const selectedAlgo = algorithmSelect.value;
-            if (selectedAlgo === '') {
-                alert('Please select a sorting algorithm.');
-                return;
-            }
-            executeSort(selectedAlgo);
-        });
-
-        // Event Listener for Reset Sort Button
-        resetSortBtn.addEventListener('click', initializeSortArray);
-
-        // Initialize on page load
-        initializeSortArray();
-    } else {
-        console.warn('Algorithm Visualizer elements not found on this page.');
-    }
-})();
-*/
 
 /* =========================================
    Algorithm Visualizer
@@ -2668,6 +1775,303 @@ while swapped`,
     } else {
         console.warn('Algorithm Visualizer elements not found on this page.');
     }
+});
+
+/* =========================================
+   Educational Resources Functionality
+   ========================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const educationalContent = {
+        algorithms: [
+			{
+            name: "Brent's Algorithm",
+            type: "Algorithm",
+            description: "Finds a cycle in function value iterations using only two iterators.",
+            pseudocode: `function brentsCycleFinding(f, x0):
+    power = lam = 1
+    tortoise = x0
+    hare = f(x0)
+    while tortoise != hare:
+        if power == lam: // power is doubled
+            tortoise = hare
+            power *= 2
+            lam = 0
+        hare = f(hare)
+        lam += 1
+    return lam`,
+            complexities: { time: "O(μ + λ)", space: "O(1)" }
+        },
+        {
+            name: "Floyd's Cycle-Finding Algorithm",
+            type: "Algorithm",
+            description: "Finds a cycle in function value iterations by using two pointers moving at different speeds.",
+            pseudocode: `function floydCycleFinding(f, x0):
+    tortoise = f(x0)
+    hare = f(f(x0))
+    while tortoise != hare:
+        tortoise = f(tortoise)
+        hare = f(f(hare))
+    mu = 0
+    tortoise = x0
+    while tortoise != hare:
+        tortoise = f(tortoise)
+        hare = f(hare)
+        mu += 1
+    lam = 1
+    hare = f(tortoise)
+    while tortoise != hare:
+        hare = f(hare)
+        lam += 1
+    return (mu, lam)`,
+            complexities: { time: "O(μ + λ)", space: "O(1)" }
+        },
+        {
+            name: "Gale–Shapley Algorithm",
+            type: "Algorithm",
+            description: "Solves the stable marriage problem by finding a stable matching.",
+            pseudocode: `function galeShapley(preferences):
+    while any free man m who still has a woman w to propose to:
+        w = next woman on m's list
+        if w is free:
+            (m, w) become engaged
+        else if w prefers m over her current partner m':
+            m' becomes free
+            (m, w) become engaged
+        else:
+            m remains free`,
+            complexities: { time: "O(n^2)", space: "O(n)" }
+        },
+        {
+            name: "ACORN Generator",
+            type: "Algorithm",
+            description: "A pseudorandom number generator based on recursive modular arithmetic.",
+            pseudocode: null, // Detailed pseudocode unavailable for brevity
+            complexities: { time: "O(n)", space: "O(1)" }
+        },
+        {
+            name: "Blum Blum Shub",
+            type: "Algorithm",
+            description: "A cryptographically secure pseudorandom number generator.",
+            pseudocode: `function BBS(seed, n):
+    x = seed
+    for i in range(n):
+        x = (x * x) mod M
+        output x mod 2`,
+            complexities: { time: "O(n)", space: "O(1)" }
+        },
+        {
+            name: "Lagged Fibonacci Generator",
+            type: "Algorithm",
+            description: "Generates pseudorandom numbers based on Fibonacci relations.",
+            pseudocode: `function laggedFibonacci(seed, j, k, n):
+    for i in range(n):
+        x = (seed[j] + seed[k]) mod m
+        output x`,
+            complexities: { time: "O(n)", space: "O(k)" }
+        },
+        {
+            name: "Linear Congruential Generator",
+            type: "Algorithm",
+            description: "Generates a sequence of pseudorandom numbers using a linear congruence relation.",
+            pseudocode: `function LCG(seed, a, c, m, n):
+    x = seed
+    for i in range(n):
+        x = (a * x + c) mod m
+        output x`,
+            complexities: { time: "O(n)", space: "O(1)" }
+        },
+        {
+            name: "Mersenne Twister",
+            type: "Algorithm",
+            description: "A fast and efficient pseudorandom number generator with a long period.",
+            pseudocode: null, // Detailed pseudocode unavailable for brevity
+            complexities: { time: "O(n)", space: "O(1)" }
+        },
+            {
+                name: "Bubble Sort",
+                type: "Algorithm",
+                description: "Bubble Sort is a simple comparison-based algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.",
+                pseudocode: `for i from 1 to N\n    for j from 0 to N - i - 1\n        if array[j] > array[j + 1]\n            swap(array[j], array[j + 1])`,
+                complexities: { time: "O(n²)", space: "O(1)" }
+            },
+            {
+                name: "Quick Sort",
+                type: "Algorithm",
+                description: "Quick Sort selects a pivot and partitions the array around the pivot, sorting elements recursively.",
+                pseudocode: `function quickSort(arr, left, right)\n    if left < right\n        pivotIndex = partition(arr, left, right)\n        quickSort(arr, left, pivotIndex - 1)\n        quickSort(arr, pivotIndex + 1, right)`,
+                complexities: { time: "O(n log n)", space: "O(log n)" }
+            }
+        ],
+		dataStructures: [
+			{
+            name: "Array",
+            type: "Data Structure",
+            description: "A collection of elements identified by index or key, stored in contiguous memory locations.",
+            operations: ["Access", "Search", "Insertion", "Deletion"],
+            complexities: { access: "O(1)", search: "O(n)", insertion: "O(n)", deletion: "O(n)" }
+        },
+        {
+            name: "Associative Array",
+            type: "Data Structure",
+            description: "A collection of key-value pairs where keys are unique and used for fast retrieval of values.",
+            operations: ["Insert", "Delete", "Search"],
+            complexities: { insertion: "O(1)", deletion: "O(1)", search: "O(1)" }
+        },
+        {
+            name: "Bit Array",
+            type: "Data Structure",
+            description: "An array that compactly stores bits and allows efficient bitwise operations.",
+            operations: ["Set", "Clear", "Flip", "Test"],
+            complexities: { set: "O(1)", clear: "O(1)", flip: "O(1)", test: "O(1)" }
+        },
+        {
+            name: "Circular Buffer",
+            type: "Data Structure",
+            description: "A fixed-size buffer that wraps around when the end is reached.",
+            operations: ["Enqueue", "Dequeue", "Peek"],
+            complexities: { enqueue: "O(1)", dequeue: "O(1)", peek: "O(1)" }
+        },
+        {
+            name: "Dynamic Array",
+            type: "Data Structure",
+            description: "An array that resizes dynamically to accommodate more elements as needed.",
+            operations: ["Access", "Search", "Insertion", "Deletion"],
+            complexities: { access: "O(1)", search: "O(n)", insertion: "O(1) amortized", deletion: "O(n)" }
+        },
+        {
+            name: "Gap Buffer",
+            type: "Data Structure",
+            description: "A dynamic array with a gap in the middle to facilitate efficient insertions and deletions.",
+            operations: ["Insert", "Delete", "Move Gap"],
+            complexities: { insert: "O(n)", delete: "O(n)", moveGap: "O(1)" }
+        },
+        {
+            name: "Hashed Array Tree",
+            type: "Data Structure",
+            description: "A dynamic array optimized for storage efficiency by splitting into fixed-size segments.",
+            operations: ["Access", "Insertion", "Deletion"],
+            complexities: { access: "O(1)", insertion: "O(1) amortized", deletion: "O(1) amortized" }
+        },
+        {
+            name: "Matrix",
+            type: "Data Structure",
+            description: "A two-dimensional array that represents rows and columns of elements.",
+            operations: ["Access", "Row Operations", "Column Operations"],
+            complexities: { access: "O(1)", rowOperations: "O(n)", columnOperations: "O(m)" }
+        },
+        {
+            name: "Parallel Array",
+            type: "Data Structure",
+            description: "A collection of arrays where each array stores the same logical data item for parallel processing.",
+            operations: ["Access", "Search", "Insertion"],
+            complexities: { access: "O(1)", search: "O(n)", insertion: "O(n)" }
+        },
+        {
+            name: "Sorted Array",
+            type: "Data Structure",
+            description: "An array that maintains elements in sorted order.",
+            operations: ["Binary Search", "Insertion", "Deletion"],
+            complexities: { binarySearch: "O(log n)", insertion: "O(n)", deletion: "O(n)" }
+        },
+        {
+            name: "Sparse Matrix",
+            type: "Data Structure",
+            description: "A matrix with a large number of zero or default values stored efficiently.",
+            operations: ["Access", "Insertion", "Deletion"],
+            complexities: { access: "O(1)", insertion: "O(1)", deletion: "O(1)" }
+        },
+        {
+            name: "Variable-Length Array",
+            type: "Data Structure",
+            description: "An array with a size that can be defined or resized at runtime.",
+            operations: ["Access", "Resize", "Insertion"],
+            complexities: { access: "O(1)", resize: "O(n)", insertion: "O(1) amortized" }
+        }
+		]
+    };
+
+    const algorithmsGrid = document.getElementById('algorithms-grid');
+    const searchInput = document.getElementById('educational-search'); // Correctly define searchInput
+	  const dataStructuresGrid = document.getElementById('data-structures-grid');
+    const modal = document.getElementById('educational-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+
+    // Function to Open Modal
+    const openModal = (item) => {
+        modalTitle.textContent = item.name;
+        modalContent.innerHTML = `
+            <p>${item.description}</p>
+            ${item.pseudocode ? `<h5>Pseudocode:</h5><pre>${item.pseudocode}</pre>` : ''}
+            ${item.complexities ? `<h5>Complexities:</h5><ul>${Object.entries(item.complexities).map(([key, value]) => `<li><strong>${key}:</strong> ${value}</li>`).join('')}</ul>` : ''}
+        `;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    // Function to Close Modal
+    const closeModal = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    };
+
+    // Attach Close Event to Modal Close Button
+    document.querySelector('.modal-close-btn').addEventListener('click', closeModal);
+
+    // Function to Create a Card
+    const createCard = (item) => {
+        const card = document.createElement('div');
+        card.className = 'educational-card';
+        card.innerHTML = `
+            <h4>${item.name}</h4>
+            <div class="description">${item.description}</div>
+        `;
+        card.addEventListener('click', () => openModal(item));
+        return card;
+    };
+
+    // Render Cards
+    const renderCards = (items, container) => {
+        container.innerHTML = '';
+        items.forEach(item => {
+            const card = createCard(item);
+            container.appendChild(card);
+        });
+    };
+
+	const searchContent = (query) => {
+        const lowerCaseQuery = query.toLowerCase();
+
+        // Filter algorithms and data structures based on query
+        const filteredAlgorithms = educationalContent.algorithms.filter((item) =>
+            item.name.toLowerCase().includes(lowerCaseQuery) ||
+            item.description.toLowerCase().includes(lowerCaseQuery)
+        );
+        const filteredDataStructures = educationalContent.dataStructures.filter((item) =>
+            item.name.toLowerCase().includes(lowerCaseQuery) ||
+            item.description.toLowerCase().includes(lowerCaseQuery)
+        );
+
+        // Render the filtered results
+        renderCards(filteredAlgorithms, algorithmsGrid);
+        renderCards(filteredDataStructures, dataStructuresGrid);
+    };
+
+    // Add Event Listener for Search Input
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            searchContent(query);
+        });
+    } else {
+        console.error("Search input element with id 'educational-search' not found.");
+    }
+
+    // Render Content
+    renderCards(educationalContent.algorithms, algorithmsGrid);
+    renderCards(educationalContent.dataStructures, dataStructuresGrid);
+
 });
 
 
