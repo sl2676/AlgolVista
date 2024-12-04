@@ -912,7 +912,6 @@ section p {
 }
 
 /* Custom Cursor */
-/*
 .custom-cursor {
     width: 20px;
     height: 20px;
@@ -924,7 +923,7 @@ section p {
     transition: width 0.2s ease, height 0.2s ease;
     z-index: 10000;
 }
-*/
+
 /* Features Section */
 .features {
     padding: 80px 20px;

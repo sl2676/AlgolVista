@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact/Support - AlgoVista</title>
+    <!-- Link to Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Sliding Navigation Bar -->
+        <div id="sideNav" class="side-nav">
+            <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
+            <a href="complexity-dashboard.html">Complexity Comparison</a>
+            <a href="data-structure-explorer.html">Data Structure Explorer</a>
+            <a href="algorithm-visualizer.html">Algorithm Visualizer</a>
+            <a href="code-editor.html">Interactive Code Editors</a>
+            <a href="educational-resources.html">Educational Resources</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact/Support</a>
+        </div>
+        
+        <!-- Navigation Bar with Explore Button -->
+        <nav class="navbar">
+            <span class="openbtn" id="openNav">&#9776; Explore</span>
+        	<div class="navbar-brand">
+				<a href="index.html" style="text-decoration: none; color: inherit;">AlgoVista</a>
+			</div>
+		</nav>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Contact/Support Section -->
+            <section class="contact-section fade-in-up" id="contact">
+                <h3>Contact/Support</h3>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
+                <div class="form-response" id="form-response"></div>
+            </section>
+        </main>
+        
+        <!-- Modal Structure -->
+        <div id="nodeModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h2 id="modalTitle">Node Details</h2>
+                <p id="modalBody">Details about the node will appear here.</p>
+            </div>
+        </div>
+        
+        <!-- D3.js Library (Not required on Contact page, can be omitted) -->
+        <!-- Link to Custom Script -->
+        <script src="js/script.js"></script>
+        <script>
+            // Contact Form Submission Handling
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Retrieve form data
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                // Simple validation
+                if (name === "" || email === "" || subject === "" || message === "") {
+                    displayFormResponse("Please fill in all fields.", false);
+                    return;
+                }
+                
+                // Here you would typically send the data to a server
+                // For demonstration, we'll just display a success message
+                displayFormResponse("Your message has been sent successfully!", true);
+                
+                // Reset the form
+                document.getElementById('contact-form').reset();
+            });
+            
+            // Function to display form response
+            function displayFormResponse(message, isSuccess) {
+                const responseDiv = document.getElementById('form-response');
+                responseDiv.textContent = message;
+                responseDiv.style.color = isSuccess ? 'green' : 'red';
+                setTimeout(() => {
+                    responseDiv.textContent = '';
+                }, 5000);
+            }
+        </script>
+    </div>
+</body>
+</html>
+

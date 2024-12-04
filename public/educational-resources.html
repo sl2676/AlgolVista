@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Resources - AlgoVista</title>
+    <!-- Link to Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Sliding Navigation Bar -->
+        <div id="sideNav" class="side-nav">
+            <a href="javascript:void(0)" class="closebtn" id="closeNav">&times;</a>
+            <a href="complexity-dashboard.html" class="nav-link">Complexity Comparison</a>
+            <a href="data-structure-explorer.html" class="nav-link">Data Structure Explorer</a>
+            <a href="algorithm-visualizer.html" class="nav-link">Algorithm Visualizer</a>
+            <a href="code-editor.html" class="nav-link">Interactive Code Editors</a>
+            <a href="educational-resources.html" class="nav-link active">Educational Resources</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="contact.html" class="nav-link">Contact/Support</a>
+        </div>
+        
+        <!-- Navigation Bar with Explore Button and Dark Mode Toggle -->
+        <nav class="navbar">
+            <span class="openbtn" id="openNav">&#9776; Explore</span>
+            <div class="navbar-brand">
+                <a href="index.html" style="text-decoration: none; color: inherit;">AlgoVista</a>
+            </div>
+            <div class="dark-mode-toggle">
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Educational Resources Section -->
+            <section class="educational-section" id="educational-section">
+                <h2>Educational Resources</h2>
+                
+                <!-- Search and Filter Controls -->
+                <div class="controls">
+                    <input type="text" id="educational-search" placeholder="Search Algorithms or Data Structures...">
+                    <select id="educational-filter">
+                        <option value="All">All</option>
+                        <option value="Algorithm">Algorithms</option>
+                        <option value="Data Structure">Data Structures</option>
+                    </select>
+                </div>
+                
+                <!-- Algorithms Container -->
+                <div class="category-container" id="algorithms-container">
+                    <h3>Algorithms</h3>
+                    <div class="grid-container" id="algorithms-grid">
+                        <!-- Algorithm Cards will be dynamically injected here -->
+                    </div>
+                </div>
+                
+                <!-- Data Structures Container -->
+                <div class="category-container" id="data-structures-container">
+                    <h3>Data Structures</h3>
+                    <div class="grid-container" id="data-structures-grid">
+                        <!-- Data Structure Cards will be dynamically injected here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Modal for Detailed Information -->
+        <div id="educational-modal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close-btn" id="closeModal">&times;</span>
+                <h3 id="modal-title">Title</h3>
+                <div id="modal-content">
+                    <!-- Modal content dynamically filled -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to JavaScript -->
+    <script src="js/script.js"></script>
+
+    <!-- Inline Script for Navigation and Modal Handling -->
+    <script>
+        // Sliding Navigation Bar
+        document.getElementById('openNav').addEventListener('click', () => {
+            document.getElementById('sideNav').style.width = '250px';
+        });
+        document.getElementById('closeNav').addEventListener('click', () => {
+            document.getElementById('sideNav').style.width = '0';
+        });
+
+        // Close Modal Function
+        document.getElementById('closeModal').addEventListener('click', () => {
+            const modal = document.getElementById('educational-modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Preserve Dark Mode State
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+        }
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
+</body>
+</html>
+
